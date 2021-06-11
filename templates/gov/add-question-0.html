@@ -1,0 +1,383 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Add Question
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Add Question</h1><br>
+
+<form action="add-question-type" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+            <div class="row">
+
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <h6 class="font-weight-light card-header bg-dark text-light"><i class="fas fa-question"></i> Add Question</h6>
+                        <div class="card-body">
+                            <textarea name="question" class="border-dark form-control" id="" cols="25" rows="5" required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <h6 class="font-weight-light card-header bg-dark text-light"><i class="fas fa-book"></i> Add Safety Code <small>(optional)</small></h6>
+                        <div class="card-body">
+                            <h6>Enter Safety code Source</h6>
+                            <input class="form-control border-dark" type="text" name="code-source">
+                            <br>
+                            <h6>Enter Safety code Section and Title</h6>
+                            <input class="form-control border-dark" type="text" name="code-title">
+                            <hr>
+                            <br>
+                            <h5>Enter Safety Code</h5>
+                            <br>
+                            <button type="button" class="btn btn-md btn-secondary text-light" data-toggle="modal" data-target="#qrPhotoCodeCenter">
+                            Scan with Phone
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="qrPhotoCodeCenter" tabindex="-1" role="dialog" aria-labelledby="qrPhotoCodeCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold" id="qrPhotoCodeLongTitle">Scan QR Code with Your Phone</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <br>
+                                    <img class="img-fluid" src="https://chart.googleapis.com/chart?cht=qr&chl={{link}}fire-admin/{{id}}/photo-upload/code/question/{{q_id}}/user/{{user_id}}/photo-token/{{photo_token}}&chs=500x500&chld=L|0">
+                                <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <br>
+                            <br>
+                            <h5 class="font-weight-light">OR</h5>
+                            <br>
+                            <div class="input-group font-weight-light">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="code-img"
+                                        accept="image/jpg, image/jpeg, image/png" class="custom-file-input"
+                                        id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                </div>
+                            </div>
+                            <br>
+                            <h5 class="font-weight-light">OR</h5>
+                            <br>
+                            <h6>Type in Safety Code</h6>
+                            <textarea name="code-text" class="border-dark form-control" id="" cols="25" rows="5"></textarea>
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col">
+                    <div class="card">
+                        <h6 class="font-weight-light card-header bg-dark text-light"><i class="fas fa-images fa-lg"></i> Add Instructional Photo
+                            <small>(optional)</small></h6>
+                        <div class="card-body">
+
+                        <!--
+                            <button type="button" class="btn btn-md btn-secondary text-light" data-toggle="modal" data-target="#qrPhotoInstructCenter">
+                            Take Photo with Phone
+                            </button>
+
+          
+                            <div class="modal fade" id="qrPhotoInstructCenter" tabindex="-1" role="dialog" aria-labelledby="qrPhotoInstructCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title font-weight-bold" id="qrPhotoInstructLongTitle">Scan QR Code with Your Phone</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <br>
+                                    <img class="img-fluid" src="https://chart.googleapis.com/chart?cht=qr&chl={{link}}fire-admin/{{id}}/photo-upload/instruct/question/{{q_id}}/user/{{user_id}}/photo-token/{{photo_token}}&chs=500x500&chld=L|0">
+                                <br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <br>
+                            <br>
+                            <h5 class="font-weight-light">OR</h5>
+                            -->
+                            <br>
+
+                            <div class="input-group font-weight-light">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="instruct-photo-file"
+                                        accept="image/jpg, image/jpeg, image/png" class="custom-file-input"
+                                        id="customFile" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                </div>
+                            </div>
+
+                            <br>
+                            <hr>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Add Image Label</div>
+                                </div>
+                                <input type="text" name="img-label" class="form-control" id="inlineFormInputGroup3"
+                                    placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <h6 class="font-weight-light card-header bg-dark text-light"><i class="fas fa-file-alt fa-lg"></i> Add Instructional Document
+                            <small>(optional)</small></h6>
+                        <div class="card-body">
+                            <div class="input-group font-weight-light">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" id="instruct-file" name="instruct-file-file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, 
+                                        application/pdf, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-powerpoint,
+                                        application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv"
+                                        class="custom-file-input" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                </div>
+                            </div>
+                            <br>
+                            <h5 class="font-weight-light">OR</h5><br>
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Link</div>
+                                </div>
+                                <input type="url" name="instruct-file-link" class="form-control"
+                                    id="inlineFormInputGroup" placeholder="">
+                            </div>
+                            <br>
+                            <br>
+                            <hr>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Add Document Label</div>
+                                </div>
+                                <input type="text" name="doc-label" class="form-control" id="inlineFormInputGroup2"
+                                    placeholder="">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <hr>
+            <br>
+            <br>
+            <h5 class="font-weight-bold">Select Response Types</h5>
+            <br>
+            <br>
+
+            <div class="row">
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Multiple Choice <input type="checkbox" id="mul-check" name="type-mul"
+                                    value="mul">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User Can Select 1 Answer</small><br><br>
+                            <h6 class="font-weight-light"><input name="dummy" type="radio" checked> Sample Answer 1
+                            </h6>
+                            <h6 class="font-weight-light"><input name="dummy" type="radio"> Sample Answer 2</h6>
+                            <br>
+                        </div>
+                        <div class="row container">
+                        <div class="col">
+                        <button class="btn btn-success" type="button" onclick="document.getElementById('mul-check').checked = true;">Add</button>
+                        </div>
+                        <div class="col">
+                        <button class="btn btn-danger" type="button" onclick="document.getElementById('mul-check').checked = false;">Remove</button>
+                        </div>
+                        </div>
+                        <br>
+                    </div>
+
+
+
+
+                </div>
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Checkbox <input type="checkbox" id="checkbox-check" name="type-checkbox"
+                                    value="checkbox">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User Can Select Multiple Answers</small><br><br>
+                            <h6 class="font-weight-light"><input type="checkbox"> Sample Answer 1</h6>
+                            <h6 class="font-weight-light"><input type="checkbox"> Sample Answer 2</h6>
+                            <br>
+                        </div>
+                        <div class="row container">
+                        <div class="col">
+                        <button class="btn btn-success" type="button" onclick="document.getElementById('checkbox-check').checked = true;">Add</button>
+                        </div>
+                        <div class="col">
+                        <button class="btn btn-danger" type="button" onclick="document.getElementById('checkbox-check').checked = false;">Remove</button>
+                        </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                
+
+            </div>
+            <br>
+
+            <div class="row">
+            <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Text <input type="checkbox" id="text-check" name="type-text" value="text">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>Open Ended Response</small><br><br>
+                            <h6 class="font-weight-light">Sample Text Area Response:<br><textarea class="border-dark form-control"></textarea></h6>
+                        </div>
+                        <br>
+                        <div class="row container">
+                        <div class="col">
+                        <button class="btn btn-success" type="button" onclick="document.getElementById('text-check').checked = true;">Add</button>
+                        </div>
+                        <div class="col">
+                        <button class="btn btn-danger" type="button" onclick="document.getElementById('text-check').checked = false;">Remove</button>
+                        </div>
+                        </div>
+                        <br>
+                    </div>
+
+
+
+
+                </div>
+                
+
+            <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Photo <input type="checkbox" id="photo-check" name="type-file" value="file">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User can upload a photo</small><br><br>
+                            <i class="fas fa-camera fa-5x"></i>
+                            <br>
+                            <br>
+                            <div class="row container">
+                            <div class="col">
+                            <button class="btn btn-success" type="button" onclick="document.getElementById('photo-check').checked = true;">Add</button>
+                            </div>
+                            <div class="col">
+                            <button class="btn btn-danger" type="button" onclick="document.getElementById('photo-check').checked = false;">Remove</button>
+                            </div>
+                            </div>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+
+
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div class="text-center">
+        <input class="btn btn-lg btn-success" type="submit" value="Next">
+    </div>
+
+
+
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+    </form>
+    </div>
+
+
+
+
+
+{% block script %}
+<script>
+$(".custom-file-input").on("change", function () {
+    var fileName = "File Selected";
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+{% endblock %}
+<!--END-->
+{% endblock %}

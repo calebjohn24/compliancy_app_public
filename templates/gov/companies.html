@@ -1,0 +1,252 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+    Companies
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+          type="text/css">
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+
+
+    <script data-dapp-detection="">
+        (function () {
+            let alreadyInsertedMetaTag = false
+
+            function __insertDappDetected() {
+                if (!alreadyInsertedMetaTag) {
+                    const meta = document.createElement('meta')
+                    meta.name = 'dapp-detected'
+                    document.head.appendChild(meta)
+                    alreadyInsertedMetaTag = true
+                }
+            }
+
+            if (window.hasOwnProperty('web3')) {
+                // Note a closure can't be used for this var because some sites like
+                // www.wnyc.org do a second script execution via eval for some reason.
+                window.__disableDappDetectionInsertion = true
+                // Likely oldWeb3 is undefined and it has a property only because
+                // we defined it. Some sites like wnyc.org are evaling all scripts
+                // that exist again, so this is protection against multiple calls.
+                if (window.web3 === undefined) {
+                    return
+                }
+                __insertDappDetected()
+            } else {
+                var oldWeb3 = window.web3
+                Object.defineProperty(window, 'web3', {
+                    configurable: true,
+                    set: function (val) {
+                        if (!window.__disableDappDetectionInsertion)
+                            __insertDappDetected()
+                        oldWeb3 = val
+                    },
+                    get: function () {
+                        if (!window.__disableDappDetectionInsertion)
+                            __insertDappDetected()
+                        return oldWeb3
+                    }
+                })
+            }
+        })()</script>
+
+{% endblock %}
+
+
+{% block main %}
+    <script>
+        $(document).ready(function () {
+            $('#log-table').DataTable({
+                "order": [[0, "desc"]]
+            });
+        });
+    </script>
+    <!--Page code here-->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">
+
+        <br>Authorized Companies</h1>
+    <br>
+
+    <div id="past-due-map" style="height: 500px; position: relative;"
+         class=" w-100 leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex="0">
+        <div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="leaflet-pane leaflet-tile-pane">
+                <div class="leaflet-layer " style="z-index: 1; opacity: 1;">
+                    <div class="leaflet-tile-container leaflet-zoom-animated"
+                         style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt=""
+                                                                                                   role="presentation"
+                                                                                                   src=""
+                                                                                                   class="leaflet-tile leaflet-tile-loaded"
+                                                                                                   style="width: 512px; height: 512px; transform: translate3d(-200px, -347px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(312px, -347px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(-200px, 165px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(312px, 165px, 0px); opacity: 1;">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="leaflet-control-container">
+            <div class="leaflet-top leaflet-left">
+                <div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in"
+                                                                                 href="#" title="Zoom in"
+                                                                                 role="button"
+                                                                                 aria-label="Zoom in">+</a><a
+                        class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button"
+                        aria-label="Zoom out">−</a></div>
+            </div>
+            <div class="leaflet-top leaflet-right"></div>
+            <div class="leaflet-bottom leaflet-left"></div>
+            <div class="leaflet-bottom leaflet-right">
+                <div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com"
+                                                                            title="A JS library for interactive maps">Leaflet</a>
+                    | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a
+                            href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a
+                            href="https://www.mapbox.com/">Mapbox</a></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var redMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/red_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+        var blueMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/blue_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var grayMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/gray_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var greenMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/green_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+        var yellowMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/yellow_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var mymap = L.map('past-due-map').setView([{{ lattitude }}, {{ longitude }}], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        }).addTo(mymap);
+
+
+        {% for k0,v0 in companies.items() %}
+
+            L.marker([{{ v0.lat }}, {{ v0.long }}], {icon: grayMarker}).addTo(mymap)
+                .bindPopup("<b>{{ v0.legal_name }}</b><br /><a href='view-comp/{{k0}}'>{{ v0.display }}</a>").openPopup();
+
+        {% endfor %}
+
+        var popup = L.popup();
+
+
+    </script>
+    <hr>
+    <br>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-striped dataTable" id="log-table" role="grid"
+                               aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID <i class="fas fa-sort"></i></th>
+                                <th>Name <i class="fas fa-sort"></i></th>
+                                <th>LIC <i class="fas fa-sort"></i></th>
+                                <th>Deauth</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for  k, v in companies.items() %}
+                                <tr>
+                                    <td><a class="btn btn-primary btn-secondary" href="view-comp/{{ k }}"><i
+                                            class="fas fa-info"></i></a> {{ k }}</td>
+                                    <td>{{ v.display }}</td>
+                                    <td>{{ v.lic }}</td>
+                                    <form action="deauth-comp" method="POST">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <td>
+                                            <button class="btn btn-danger" type="submit" name="comp" value="{{ k }}"><i
+                                                    class="fas fa-times-circle"></i></button>
+                                        </td>
+                                    </form>
+
+
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% block script %}
+
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

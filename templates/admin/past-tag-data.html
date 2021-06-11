@@ -1,0 +1,104 @@
+
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+  System Registration Data
+
+{% endblock %}
+
+
+<!--Set Title-->
+{% block head %}
+
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+          type="text/css">
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+{% endblock %}
+
+
+{% block main %}
+    <script>
+    $(document).ready(function() {
+    $('#log-table').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+    </script>
+
+
+
+    <!--Page code here-->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-800 text-dark">
+
+        <br>Tags</h1>
+
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-dark">Tag logs</h6>
+        </div>
+        <div class="card-body">
+            <iv class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped dataTable" id="log-table" role="grid"
+                                   aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                               <thead>
+            <tr>
+                <th class="font-weight-bold text-sm-left">Cycle Start Date <i class="fas fa-sort"></i></th>
+                <th class="font-weight-bold text-sm-left">Cycle End Date <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Total <i class="fas fa-sort"></i></th>
+                <th class="font-weight-bold text-sm-left text-danger">Red <i class="fas fa-sort"></i></th>
+                <th class="font-weight-bold text-sm-left text-warning">Yellow <i class="fas fa-sort"></i></th>
+                <th class="font-weight-bold text-sm-left text-dark">White <i class="fas fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for l in log_keys %}
+            <tr>
+             <td class="font-weight-light">{{logs[l]['start_date']}}</td>
+              <td class="font-weight-light">{{logs[l]['end_date']}}</td>
+              <td class="font-weight-light">{{logs[l]['reports']}}</td>
+             <td class="font-weight-light text-danger">{{logs[l]['tags']['red']}}</td>
+             <td class="font-weight-light text-warning">{{logs[l]['tags']['yellow']}}</td>
+             <td class="font-weight-light text-dark">{{logs[l]['tags']['white']}}</td>
+            </tr>
+
+            {% endfor %}
+
+          </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </iv>
+        </div>
+    </div>
+
+
+
+
+    {% block script %}
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}
+
+

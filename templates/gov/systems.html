@@ -1,0 +1,379 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+    Systems
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+          type="text/css">
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+
+
+
+    <script data-dapp-detection="">
+        (function () {
+            let alreadyInsertedMetaTag = false
+
+            function __insertDappDetected() {
+                if (!alreadyInsertedMetaTag) {
+                    const meta = document.createElement('meta')
+                    meta.name = 'dapp-detected'
+                    document.head.appendChild(meta)
+                    alreadyInsertedMetaTag = true
+                }
+            }
+
+            if (window.hasOwnProperty('web3')) {
+                // Note a closure can't be used for this var because some sites like
+                // www.wnyc.org do a second script execution via eval for some reason.
+                window.__disableDappDetectionInsertion = true
+                // Likely oldWeb3 is undefined and it has a property only because
+                // we defined it. Some sites like wnyc.org are evaling all scripts
+                // that exist again, so this is protection against multiple calls.
+                if (window.web3 === undefined) {
+                    return
+                }
+                __insertDappDetected()
+            } else {
+                var oldWeb3 = window.web3
+                Object.defineProperty(window, 'web3', {
+                    configurable: true,
+                    set: function (val) {
+                        if (!window.__disableDappDetectionInsertion)
+                            __insertDappDetected()
+                        oldWeb3 = val
+                    },
+                    get: function () {
+                        if (!window.__disableDappDetectionInsertion)
+                            __insertDappDetected()
+                        return oldWeb3
+                    }
+                })
+            }
+        })()</script>
+
+{% endblock %}
+
+
+{% block main %}
+    <!--Page code here-->
+    <script>
+        $(document).ready(function () {
+            $('#log-table').DataTable({
+                "order": [[3, "desc"]]
+            });
+        });
+    </script>
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">
+
+        <br>Registered Systems</h1><br>
+
+
+    <div id="past-due-map" style="height: 500px; position: relative;"
+         class=" w-100 leaflet-container leaflet-fade-anim leaflet-grab leaflet-touch-drag" tabindex="0">
+        <div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="leaflet-pane leaflet-tile-pane">
+                <div class="leaflet-layer " style="z-index: 1; opacity: 1;">
+                    <div class="leaflet-tile-container leaflet-zoom-animated"
+                         style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt=""
+                                                                                                   role="presentation"
+                                                                                                   src=""
+                                                                                                   class="leaflet-tile leaflet-tile-loaded"
+                                                                                                   style="width: 512px; height: 512px; transform: translate3d(-200px, -347px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(312px, -347px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(-200px, 165px, 0px); opacity: 1;"><img
+                            alt="" role="presentation"
+                            src=""
+                            class="leaflet-tile leaflet-tile-loaded"
+                            style="width: 512px; height: 512px; transform: translate3d(312px, 165px, 0px); opacity: 1;">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="leaflet-control-container">
+            <div class="leaflet-top leaflet-left">
+                <div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in"
+                                                                                 href="#" title="Zoom in"
+                                                                                 role="button"
+                                                                                 aria-label="Zoom in">+</a><a
+                        class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button"
+                        aria-label="Zoom out">−</a></div>
+            </div>
+            <div class="leaflet-top leaflet-right"></div>
+            <div class="leaflet-bottom leaflet-left"></div>
+            <div class="leaflet-bottom leaflet-right">
+                <div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com"
+                                                                            title="A JS library for interactive maps">Leaflet</a>
+                    | Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a
+                            href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a
+                            href="https://www.mapbox.com/">Mapbox</a></div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var redMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/red_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+        var blueMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/blue_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var grayMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/gray_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var greenMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/green_marker.png') }}",
+            iconSize: [35, 35],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+        var yellowMarker = L.icon({
+            iconUrl: "{{ url_for('static', filename='img/yellow_marker.png') }}",
+            iconSize: [40, 40],
+            iconAnchor: [22, 80],
+            popupAnchor: [-3, -76]
+        });
+
+
+        var mymap = L.map('past-due-map').setView([{{ lattitude }}, {{ longitude }}], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+        }).addTo(mymap);
+
+        {% for k0,v0 in systems.items() %}
+
+        {% if v0.zone == id %}
+
+            {% if v0.tag == 'Red' %}
+
+                L.marker([{{ v0.lat }}, {{ v0.long }}], {icon: redMarker}).addTo(mymap)
+                    .bindPopup("<b>{{ k0 }}</b><br><b>{{ v0.type }}</b><br><h6>{{ v0.name }}</h6><h6><a href='view-system/{{ k0 }}'>Info</a></h6>").openPopup();
+
+            {% elif v0.tag == 'Yellow' %}
+
+                L.marker([{{ v0.lat }}, {{ v0.long }}], {icon: yellowMarker}).addTo(mymap)
+                    .bindPopup("<b>{{ k0 }}</b><br><b>{{ v0.type }}</b><br><h6>{{ v0.name }}</h6><h6><a href='view-system/{{ k0 }}'>Info</a></h6>").openPopup();
+
+
+            {% elif v0.tag == 'White' %}
+                L.marker([{{ v0.lat }}, {{ v0.long }}], {icon: grayMarker}).addTo(mymap)
+                    .bindPopup("<b>{{ k0 }}</b><br><b>{{ v0.type }}</b><br><h6>{{ v0.name }}</h6><h6><a href='view-system/{{ k0 }}'>Info</a></h6>").openPopup();
+
+
+            {% else %}
+
+                L.marker([{{ v0.lat }}, {{ v0.long }}], {icon: greenMarker}).addTo(mymap)
+                    .bindPopup("<b>{{ k0 }}</b><br><b>{{ v0.type }}</b><br><h6>{{ v0.name }}</h6><h6><a href='view-system/{{ k0 }}'>Info</a></h6>").openPopup();
+            {% endif %}
+
+        {% endif %}
+        {% endfor %}
+
+
+        var popup = L.popup();
+
+
+    </script>
+
+
+
+    <hr>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-success">Systems</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped dataTable" id="log-table" role="grid"
+                                   aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+
+                        <th class="font-weight-bold">ID <i class="fas fa-sort"></i></th>
+                        <th class="font-weight-bold">Owner <i class="fas fa-sort"></i></th>
+                        <th class="font-weight-bold">Last Inspection <i class="fas fa-sort"></i></th>
+                        <th class="font-weight-bold">Brand <i class="fas fa-sort"></i></th>
+                        <th class="font-weight-bold">Tag <i class="fas fa-sort"></i></th>
+                        <th class="font-weight-bold">Status</th>
+                        </tr>
+                                </thead>
+                                <tbody>
+                                {% for k1,v1 in systems.items() %}
+                                {% if v1.zone == id %}
+                                    <tr>
+                                        <td class="font-weight-light"><a class="btn btn-success"
+                                                                         href="view-system/{{ k1 }}"><i
+                                                class="fas fa-info"></i></a> {{ k1 }}
+                                        </td>
+                                        <td class="font-weight-light">{{v1.name}} </td>
+                            <td class="font-weight-light">{{v1.time_stamp}}</td>
+                            <td class="font-weight-light">{{v1.brand}}</td>
+                            <td class="font-weight-light">
+                                            {% if v1.tag == 'Red' %}
+                                                <p class="text-danger">{{ v1.tag }}
+                                            {% elif v1.tag == 'Yellow' %}
+                                                <p class="text-warning">{{ v1.tag }}
+                                            {% elif v1.tag == 'White' %}
+                                                <p class="text-dark">{{ v1.tag }}
+                                                
+                                            {% else %}
+                                                <p class="text-dark">Not Filed
+                                            {% endif %}
+
+                                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tagChangeModal-{{k1}}">
+                                              <i class="fas fa-edit"></i>
+                                            </button>
+                                            </p>
+
+                                            
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="tagChangeModal-{{k1}}" tabindex="-1" role="dialog" aria-labelledby="changeTagModalId" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Change Tag</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form method="POST" action="/fire-admin/{{id}}/change-system-tag">
+                                                            <br>
+                                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                            <input name="system_id" type="hidden" value="{{k1}}">
+                                                            <input name="tag" class="btn btn-light text-dark border-dark" type="submit" value="White"><br><br>
+                                                            <input name="tag" class="btn btn-warning" type="submit" value="Yellow"><br><br>
+                                                            <input name="tag" class="btn btn-danger" type="submit" value="Red"><br><br>
+
+                                                        </form>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            </td>
+                            {% if v1.active == 'yes' %}
+                            <td class="font-weight-light"><button type="button" class="btn btn-danger"
+                                    data-toggle="modal" data-target="#rem-system-modal-{{k1}}"><i class="fas fa-times-circle"></i>
+                                </button></td>
+                                <div class="modal fade" id="rem-system-modal-{{k1}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                            Change System Status</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="change-system" method="POST">
+                                        <input type="hidden" name="system" value="{{k1}}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <div class="modal-body">
+                                            <p class="font-weight-bold">Permanently Delete System</p><br>                                            
+                                            <button type="submit" name="type" value="delete"
+                                                class="btn btn-lg font-weight-light btn-danger">
+                                                Delete <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <hr>
+                                            <p class="font-weight-bold">Temporarily Deactivate
+                                                System</p><br>
+                                            <button type="submit" name="type" value="deactivate"
+                                                class="btn btn-lg font-weight-light btn-danger">
+                                                Deactivate <i class="fas fa-power-off"></i></i>
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                            {% else %}
+                            <td>
+                                <form action="change-system" method="POST">
+                                    <input type="hidden" name="system" value="{{k1}}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <button class="btn btn-success" type="submit" name="type" value="activate"><i
+                                            class="fas fa-power-off"></i></button>
+                                </form>
+
+                            </td>
+                            {% endif %}
+
+                                        
+
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block script %}
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

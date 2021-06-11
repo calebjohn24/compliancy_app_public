@@ -1,0 +1,11 @@
+{
+    "name": "Sentinel Fire Watch",
+    "short_name": "SentinelFW",
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "/"
+  }
+  

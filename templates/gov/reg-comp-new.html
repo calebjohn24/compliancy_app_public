@@ -1,0 +1,233 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Authorize Company
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+<br>Authorize Company</h1>
+
+
+<br>
+        <br>
+        <br>
+        <h3 class="font-weight-light">{{comp.display}} ({{comp_id}})</h3>
+        <hr>
+
+        <br>
+
+
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light"><i class="fas fa-map-marked-alt"></i> {{comp.addr}} {{comp.city}}, {{comp.state}} {{comp.zip}}</h6>
+            </div>
+
+            <iframe id="gmap_canvas"
+                src="https://maps.google.com/maps?q= {{comp.addr|replace(' ', '%20')}} {{comp.city|replace(' ', '%20')}} {{comp.state}} {{comp.zip}} &t=&z=11&ie=UTF8&iwloc=&output=embed"
+                frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" height="500"></iframe>
+
+        </div>
+
+        <br>
+        <br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Company Info <i class="fas fa-info-circle fa-lg"></i></h6>
+            </div>
+            <div class="card-body text-left">
+                <br>
+                <h6 class="font-weight-light"><b>Phone:</b> {{comp.phone}}</h6>
+                <br>
+                <h6 class="font-weight-light"><b>Legal Name:</b> {{comp.legal_name}}</h6>
+                <br>
+                <h6 class="font-weight-light"><b>LIC:</b> {{comp.lic}}</h6>
+                <br>
+                <h6 class="font-weight-light"><b>Union:</b> {{comp.union}} </h6>
+                <br>
+                <h6 class="font-weight-light"><b>Website:</b> {{comp.website}} </h6>
+
+                <br>
+
+
+
+            </div>
+
+
+        </div>
+
+        <br>
+        <br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Administrators <i class="fas fa-user-shield fa-lg"></i></h6>
+            </div>
+            <div class="card-body text-left">
+                <br>
+
+                {% for k_a, v_a in personnel.items() %}
+                    {% if v_a.type == 'admin' %}
+                    <h5 class="font-weight-bold">{{ v_a.name }}</h5>
+                        <h6 class="font-weight-light"><i class="fas fa-phone"></i> {{ v_a.phone }}<br><i class="fas fa-envelope"></i> <a href="mailto:{{ v_a.email }}">{{ v_a.email }}</a></h6>
+                        <br>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+
+
+
+                <br>
+                <br>
+
+
+            </div>
+
+
+        </div>
+
+
+        <br>
+        <br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Certificates <i class="fas fa-certificate fa-lg"></i></h6>
+            </div>
+
+            <div class="text-left card-body">
+                <br>
+                {% for c in comp.certs %}
+                <h5 class="font-weight-light">{{c}}:</h5>
+                <br>
+                <img class="img-fluid border-dark" src="{{comp['certs'][c]['img']}}">
+
+
+                <br>
+                <br>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+        <br><br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Logo <i class="fas fa-file-image fa-lg"></i></h6>
+            </div>
+        </div>
+        <img class="img-fluid" src="{{comp.logo}}">
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+
+
+
+
+        <hr>
+        <br>
+        <br>
+        <br>
+        <div class="row text-center">
+
+            <div class="col">
+
+                <form action="/fire-admin/{{zone}}/confirm-company" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input name="comp" value="{{comp_id}}" type="hidden">
+                    <input name="request_id" value="{{request_id}}" type="hidden">
+                    <button class="btn btn-lg btn-success font-weight-light" type="submit" name="confirm"
+                        value="yes">Authorize
+                        Company</button>
+                </form>
+
+            </div>
+
+            <div class="col">
+
+                <button class="btn btn-lg btn-danger font-weight-light" data-toggle="modal"
+                    data-target="#exampleModalCenter">Decline
+                    Authorization Request</button>
+
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Reject Company</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/fire-admin/{{zone}}/confirm-company" method="POST">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <input name="confirm" value="no" type="hidden">
+                                    <input name="comp" value="{{comp_id}}" type="hidden">
+                                    <p class="font-weight-light">Enter Reason For Rejecting This Company</p><br>
+                                    <textarea class="font-weight-light form-control border-dark" cols="30" rows="5"
+                                        name="reason" type="text" required></textarea>
+
+                                    <br>
+                                    <hr>
+                                    <button type="submit" class="btn btn-danger font-weight-light">Decline Authorization Request</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+
+            </div>
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

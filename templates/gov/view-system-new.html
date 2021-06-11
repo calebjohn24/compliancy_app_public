@@ -1,0 +1,154 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+View System
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br><button onclick="window.history.back();" class="btn btn-primary"><i class="fas fa-arrow-left"></i></button> View System</h1>
+
+<div class="text-center">
+<br>
+
+<h4 class="font-weight-light"> System #{{system_id}}</h4>
+                <hr>
+
+                {% if system.tag|upper == 'YELLOW' %}
+
+                    <div class="alert alert-warning font-weight-light" role="alert">
+                        Yellow Tag
+                    </div>
+
+                    {% elif system.tag|upper == 'RED' %}
+
+                    <div class="alert alert-danger font-weight-light" role="alert">
+                        Red Tag
+                    </div>
+
+                    {% elif system.tag|upper == 'WHITE' %}
+
+                    <div class="alert alert-light text-dark font-weight-light border border-dark" role="alert">
+                        White Tag
+                    </div>
+
+                    {% endif %}
+                <hr>
+                <br>
+
+
+                <div class="card">
+
+                    <div class="card-header bg-dark text-light font-weight-light">
+                        <h6 class="font-weight-light"><i class="fas fa-map-marked-alt"></i> {{system.addr}} {{system.city}}
+                            {{system.state}} {{system.zip}}</h6>
+                    </div>
+
+                    <iframe id="gmap_canvas"
+                        src="https://maps.google.com/maps?q={{system.addr|replace(' ', '%20')}}%20{{system.state}}%20{{system.zip}}&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" height="500"></iframe>
+
+                </div>
+
+                <br>
+                <br>
+                <div class="card">
+
+                    <div class="card-header bg-dark text-light font-weight-light">
+                        <h6 class="font-weight-light">System Info <i class="fas fa-info-circle fa-lg"></i></h6>
+                    </div>
+                    <div class="card-body text-left">
+                        <br>
+                        <h6 class="font-weight-light">Jurisdiction: {{system.zone}}</h6>
+                        <br>
+                        <h6 class="font-weight-light">Brand: <b>{{system.brand}}</b></h6>
+                        <br>
+                        <h6 class="font-weight-light">Model: <b>{{system.model}}</b></h6>
+                        <br>
+                        <h6 class="font-weight-light">Burners: <b>{{system.burner}}</b></h6>
+                        <br>
+                        <h6 class="font-weight-light">Location: <b>{{system.location}}</b> </h6>
+                        <br>
+                        <h6 class="font-weight-light">Registered By: <b>{{system.reg_comp}}</b><br><br>Technician Email:
+                            <b>{{system.reg_email}}</b> </h6>
+                        <br>
+                        <h6 class="font-weight-light">Registered On: <b>{{system.time_stamp}}</b> </h6>
+                        <br>
+                        {% if system.last_inspect == 'na' %}
+
+                        <h6 class="font-weight-light">Last Inspected By: N/A </h6>
+                        <br>
+                        {% else %}
+                        <h6 class="font-weight-light">Last Inspected By: <b>{{system.last_comp}}</b> on <b>{{system.last_inspect}}</b>
+                        </h6>
+                        <br>
+                        {% endif %}
+                        <h6 class="font-weight-light">Inspection Frequency: <b>{{system.next_inspect}} Days</b>
+                        </h6>
+                        <br>
+                    </div>
+
+
+                </div>
+
+                <br>
+                <br>
+                <div class="card">
+
+                    <div class="card-header bg-dark text-light font-weight-light">
+                        <h6 class="font-weight-light">Contact Info <i class="fas fa-address-card fa-lg"></i></h6>
+                    </div>
+
+                    <div class="text-left card-body">
+                        <br>
+
+                        <h6 class="font-weight-light">Contact Name: <b>{{system.owner}}</b></h6>
+                        <br>
+
+                        <h6 class="font-weight-light">Business Name: <b>{{system.name}}</b></h6>
+                        <br>
+                        <h6 class="font-weight-light"><i class="fas fa-phone fa-lg"></i> <b>{{system.phone}}</b></h6>
+                        <br>
+                        <h6 class="font-weight-light"><i class="fas fa-envelope fa-lg"></i> <a
+                                href="mailto:{{system.email}}"><b>{{system.email}}</b></a></h6>
+                        <br>
+                        <br>
+                    </div>
+
+                </div>
+                <br><br>
+                <div class="card">
+
+                    <div class="card-header bg-dark text-light font-weight-light">
+                        <h6 class="font-weight-light">Diagram <i class="fas fa-file-image fa-lg"></i></h6>
+                    </div>
+                </div>
+                <img class="img-fluid" src="{{system.drawing}}">
+
+
+
+
+
+                <br>
+
+                <br>
+                <br><br>
+
+</div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+    <link rel="manifest" href="../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <title>Sentinel Fire Watch</title>
+</head>
+
+<body>
+   <script>
+    $(document).ready(function() {
+    $('#log-table').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+    </script>
+    <div class="container-fluid">
+        <br>
+        <h4 class="font-weight-light"><br>
+            <a class="btn btn-primary btn-lg font-weight-light" href="/{{comp_name}}/admin-panel-view-techs"><i
+                    class="fas fa-arrow-left"></i></a> {{user_info.name}}</h4>
+        <br>
+        <br>
+        <di class="card">
+
+            <div class="card-header bg-dark text-light text-center font-weight-light">
+                <h6 class="font-weight-light">Info <i class="fas fa-info-circle"></i></h6>
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-lg-5">
+                    <br>
+
+
+                    <h6 class="font-weight-light">Email: {{user_info.email}}</h6>
+                    <br>
+                    <h6 class="font-weight-light">Phone: {{user_info.phone}}</h6>
+                    <br>
+                    <h6 class="font-weight-light">ICC Certification #{{user_info.icc}}</h6>
+                    <br>
+                    <h6 class="font-weight-light">State Certification #{{user_info.state_cert}}</h6>
+                    <br>
+                </div>
+                <div class="col-lg-7">
+
+                </div>
+            </div>
+
+
+
+
+
+
+        </di>
+        <br>
+        <br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light text-center font-weight-light">
+                <h6 class="font-weight-light">Report Breakdown <i class="fas fa-clipboard-list"></i></h6>
+            </div>
+            <br>
+            {% if user_logs.reports != 0 %}
+                <br>
+                <br>
+
+            <h5 class="font-weight-light mx-auto" >{{user_info.name}} Has Filed {{user_logs.reports}} Reports and Registered {{ user_logs.systems }} Systems This Cycle </h5>
+
+            <br>
+            <br>
+            <canvas id="tag-chart" class="mx-auto container"></canvas>
+            <script>
+                var tag_ctx = document.getElementById('tag-chart').getContext('2d');
+
+                new Chart(tag_ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ["Red", "Yellow", "White"],
+                        datasets: [
+                            {
+                                label: "# of Reports",
+                                backgroundColor: ["#ff0022", "#fff200", "#cfcfcf"],
+                                data: [{{ user_logs['tags']['red'] }}, {{ user_logs['tags']['yellow'] }}, {{ user_logs['tags']['white'] }}]
+                            }
+                          ]
+                        },
+                    options: {
+                    title: {
+                        display: false,
+                        text: 'Report Tag Breakdown'
+                    }
+                }
+                      });
+            </script>
+            {% else %}
+            <h5 class="font-weight-light">{{user_info.name}} Has Filed 0 Reports This Cycle and Registered {{ user_logs.systems }} Systems This Cycle </h5>
+            {% endif %}
+        <br>
+        </div>
+            <br>
+            <br>
+
+            <div class="card">
+
+            <div class="card-header bg-dark text-light text-center font-weight-light">
+                <h6 class="font-weight-light">Past Data <i class="fas fa-calendar-alt"></i></h6>
+            </div>
+            <br>
+            <br>
+            {{ logs }}
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+        <br>
+        <br>
+
+
+    <br>
+    <br>
+
+
+    </div>
+</body>

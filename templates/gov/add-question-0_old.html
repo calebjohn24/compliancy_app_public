@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+    <link rel="manifest" href="../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+    <title>Sentinel Fire Watch</title>
+</head>
+
+<body>
+    <div class="container-fluid text-center font-weight-light">
+        <br>
+        <h4 class="font-weight-light">Question Tool</h4>
+        <hr>
+        <br>
+
+        <form action="add-question-type" method="POST" enctype="multipart/form-data">
+
+            <div class="row">
+
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <h5 class="font-weight-light card-header bg-dark text-light">Add Question <i
+                                class="fas fa-question-circle fa-lg"></i></h5>
+                        <div class="card-body">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <textarea name="question" class="border-dark" id="" cols="40" rows="5" required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <h5 class="font-weight-light card-header bg-dark text-light">Add Instructional Photo
+                            <small>(optional)</small> <i class="fas fa-images fa-lg"></i></h5>
+                        <div class="card-body">
+
+
+                            <div class="input-group font-weight-light">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload Photo</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="intruct-photo-file"
+                                        accept="image/jpg, image/jpeg, image/png" class="custom-file-input"
+                                        id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                </div>
+                            </div>
+
+                            <br>
+                            <hr>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Add Image Label</div>
+                                </div>
+                                <input type="text" name="img-label" class="form-control" id="inlineFormInputGroup3"
+                                    placeholder="">
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <h5 class="font-weight-light card-header bg-dark text-light">Add Instructional Document
+                            <small>(optional)</small> <i class="fas fa-file-alt fa-lg"></i></h5>
+                        <div class="card-body">
+
+                            <div class="input-group font-weight-light">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload Document</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" name="intruct-file-file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, 
+        application/pdf, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-powerpoint,
+        application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv"
+                                        class="custom-file-input" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01"></label>
+                                </div>
+                            </div>
+                            <br>
+                            <h5 class="font-weight-light">OR</h5><br>
+
+                            <label class="sr-only" for="inlineFormInputGroup"></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Link</div>
+                                </div>
+                                <input type="url" name="intruct-file-link" class="form-control"
+                                    id="inlineFormInputGroup" placeholder="">
+                            </div>
+                            <br>
+                            <br>
+                            <hr>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Add Document Label</div>
+                                </div>
+                                <input type="text" name="doc-label" class="form-control" id="inlineFormInputGroup2"
+                                    placeholder="">
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <hr>
+            <br>
+            <br>
+            <h5 class="font-weight-light">Select Response Types</h5>
+            <br>
+            <br>
+
+            <div class="row">
+
+                <div class="col">
+
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Multiple Choice <input type="checkbox" name="type-mul"
+                                    value="mul">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User Can Select 1 Answer</small><br><br>
+                            <h6 class="font-weight-light"><input name="dummy" type="radio" checked> Sample Answer 1
+                            </h6>
+                            <h6 class="font-weight-light"><input name="dummy" type="radio"> Sample Answer 2</h6>
+                            <br>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Text <input type="checkbox" name="type-text" value="text">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>Open Ended Response</small><br><br>
+                            <h6 class="font-weight-light">Sample Text Area Response:<br><textarea></textarea></h6>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Checkbox <input type="checkbox" name="type-checkbox"
+                                    value="checkbox">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User Can Select Multiple Answers</small><br><br>
+                            <h6 class="font-weight-light"><input type="checkbox"> Sample Answer 1</h6>
+                            <h6 class="font-weight-light"><input type="checkbox"> Sample Answer 2</h6>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-header bg-dark font-weight-light text-light">
+                            <h5 class="font-weight-light">Photo <input type="checkbox" name="type-file" value="file">
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <small>User can upload a photo</small><br><br>
+                            <i class="fas fa-camera fa-5x"></i>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+    </div>
+    <br>
+    <br>
+    <div class="text-center">
+        <input class="btn btn-lg btn-success" type="submit" value="Next">
+    </div>
+
+
+
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+    </form>
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+
+
+
+
+    </form>
+</body>
+
+</html>

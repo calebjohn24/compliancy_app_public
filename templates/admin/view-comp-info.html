@@ -1,0 +1,618 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+    Company Profile
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Company Info</h1>
+    <br>
+
+        <div class="row">
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Company ID <i
+                  class="fas fa-id-card fa-lg"></i></h5>
+              <div class="card-body">
+                <h4 class="card-title font-weight-light"><br>{{id}}</h4>
+                <br>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Display Name <i
+                  class="fas fa-file-signature"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">
+                  {{comp_name}}</h5> <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModalCenter-dispname">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Union Info <i class="fas fa-users fa-lg"></i>
+              </h5>
+              <div class="card-body">
+                {% if union == 'True' %}
+                <h5 class="card-title font-weight-light"></i>
+                  {{comp_name}} Is A Union Company </h5>
+                <br>
+
+                <button type="button" class="btn btn-primary font-weight-light" data-toggle="modal"
+                  data-target="#exampleModal">
+
+                  Change <i class="fas fa-edit"></i>
+
+
+                </button>
+
+                {% else %}
+                <h5 class="card-title font-weight-light"><i class="fas fa-file-signature text-danger"></i>
+                  {{comp_name}} Is Not A Union Company</h5><br>
+
+                <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal"
+                  data-target="#exampleModal">
+
+                  Change <i class="fas fa-edit"></i>
+
+
+                </button>
+
+
+
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="modal fade" id="exampleModalCenter-dispname" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Display Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="edit-dispname" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="text-light font-weight-light">Enter New Display Name</p>
+                  <input type="text" name="name" class="font-weight-light border-dark form-control"
+                    value="{{comp_name}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLabel">Union Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form method="POST" action="change-union">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light">Note: Reporting Incorrect Information May Lead To Your Company Being
+                    Disbarred</p>
+                  <br>
+                  <hr>
+                  <h5 class="font-weight-light">Change Union Status</h5><br>
+                  <button type="submit" name="union" value="yes"
+                    class="btn btn-lg btn-primary font-weight-light">Union</button>
+                  <br><br>
+                  <button type="submit" name="union" value="no"
+                    class="btn btn-lg btn-secondary font-weight-light">Non-Union</button>
+                  <br>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Certifications <i
+                  class="fas fa-certificate"></i></h5>
+              <div class="card-body text-right">
+                {% for c in certs %}
+
+                <h5 class="font-weight-light">{{c}} <button type="button" class="btn btn-success font-weight-light"
+                    data-toggle="modal" data-target="#exampleModalCenter-{{c}}-cert"> Update Cert
+                    <i class="fas fa-arrow-up fa-lg"></i></button></h5>
+
+                <div class="modal fade" id="exampleModalCenter-{{c}}-cert" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Update Certification</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="update-cert" id="{{c}}-update" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body text-left">
+                          <small class="font-weight-light text-uppercase">Note: Uploading False or Misleading Documents
+                            Will Lead To Your Company Being Disbarred and Potential Legal Action</small>
+                          <hr>
+                          <a class="btn btn-info" target="_blank" href="{{certs[c]['img']}}">View Current Certificate
+                            <i class="fas fa-certificate"></i></a>
+
+                          <hr>
+
+                          <h4 class="font-weight-light text-dark">Update {{c}} Certification</h4>
+                          <br>
+
+                          <h5 class="font-weight-bold text-dark">Upload Photo of Certificate</h5>
+
+
+                          <input type="file" class="form-control-file" name="cert"
+                            accept="image/jpg, image/jpeg, image/png" required>
+                          <input type="hidden" name="brand" value="{{c}}">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                          <br><h4>OR</h4>
+                          <br>
+                          <h4 class="font-weight-bold text-dark">Scan With Phone</h4><br>
+                          <img class="img-fluid" src="https://chart.googleapis.com/chart?cht=qr&chl={{link}}comp/{{id}}/photo-cert-upload/{{c}}/user/{{user}}/photo-token/{{photo_token}}&chs=350x350&chld=L|0">
+                          <br>
+                          <br>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close">Close</button>
+                          <br>
+                          <button type="submit" form="{{c}}-update" class="btn btn-primary">Update</button>
+                          
+                          
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+
+                {% endfor %}
+                <br>
+                <hr>
+                <br>
+                <button type="button" class="btn btn-success font-weight-light" data-toggle="modal"
+                  data-target="#add-cert-modal">Add
+                  Certification <i class="fas fa-certificate"></i> <i class="fas fa-plus"></i></button>
+
+                <div class="modal fade" id="add-cert-modal" tabindex="-1" role="dialog" aria-labelledby="add-cert-modal"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Certificate</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="add-cert" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <div class="modal-body text-left">
+                          <small class="font-weight-light text-uppercase">Note: Uploading False or Misleading Documents
+                            Will Lead To Your Company Being Disbarred and Potential Legal Action</small>
+                          <hr>
+                          <select name="brand" id="brand-select" class="form-control border-dark text-dark" onchange="getval(this);" required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Amerex">Amerex</option>
+                            <option value="Ansul">Ansul</option>
+                            <option value="Kiddie">Kiddie</option>
+                            <option value="Protex">Protex</option>
+                            <option value="Pyro-Chem">Pyro-Chem</option>
+                            <option value="Piranha">Piranha</option>
+                            <option value="Badger">Badger</option>
+                            <option value="Range-Guard">Range-Guard</option>
+                            <option value="Buckeye">Buckeye</option>
+
+                          </select>
+                          <br>
+                          <hr>
+                          <br>
+                          <h5 class="font-weight-bold text-dark">Upload Photo of Certificate</h5><br>
+                          <script>
+                          function getval(sel)
+                          { 
+                              var tag = '<img class="img-fluid" src="https://chart.googleapis.com/chart?cht=qr&chl={{link}}comp/{{id}}/photo-cert-upload/'+(sel.value)+'/user/{{user}}/photo-token/{{photo_token}}&chs=500x500&chld=L|0">'
+                              document.getElementById("qr-upload").innerHTML = tag
+                          }
+                          </script>
+                          <input type="file" class="form-control-file" name="cert"
+                            accept="image/jpg, image/jpeg, image/png" required>
+                          <br>
+                          <h4>OR</h4><br>
+                          <h4 class="font-weight-bold text-dark">Scan with phone</h4>
+                          <div id="qr-upload"></div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close">Close</button>
+                          <br>
+                          <button type="submit" class="btn btn-primary">Add Certificate</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Jurisdictions <i
+                  class="fas fa-map-marker-alt"></i></h5>
+              <div class="card-body text-center">
+                {% for kj, vj in zones.items() %}
+
+                {% if vj['date'] == 'pending' %}
+                <h4 class="font-weight-light text-warning">{{kj}} <small class="font-weight-light">(Pending)</small>
+                </h4>
+                <br>
+                <hr>
+                <br>
+
+                {% else %}
+                <h4 class="font-weight-light">{{kj}} </h4>
+                <br>
+                <hr>
+                <br>
+
+                {% endif %}
+
+                {% endfor %}
+                <a class="btn btn-success font-weight-light text-center" href="req-zone">Add
+                  Jurisdiction <i class="fas fa-map-marker-alt"></i> <i class="fas fa-plus"></i>
+                </a>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Contact Info <i
+                  class="fas fa-address-book"></i></h5>
+              <div class="card-body text-right">
+
+                <h6 class="font-weight-light">Address: {{addr}}
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-addr">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <h6 class="font-weight-light">Phone Number: {{phone}}
+                  <button type="button" class="btn btn-info" data-toggle="modal"
+                    data-target="#exampleModalCenter-number">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <!-- Name -->
+                <h6 class="font-weight-light">Company LIC: {{lic}}
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-lic">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <h6 class="font-weight-light">Company Website: {{website}}
+                  <button type="button" class="btn btn-info" data-toggle="modal"
+                    data-target="#exampleModalCenter-website">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Logo</h5>
+              <div class="card-body">
+
+                <img src={{logo}} class="img-fluid">
+                <br>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-logo">
+                Edit <i class="fas fa-edit"></i>
+                </button>
+
+
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+
+        <br><br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-addr" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form action="admin-update~addr" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light">Street Address</p>
+                  <input type="text" name="addr" class="font-weight-light border-dark form-control">
+                  <br>
+                  <p class="font-weight-light">City</p>
+                  <input type="text" name="city" class="font-weight-light border-dark form-control">
+                  <br>
+                  <p class="font-weight-light">State</p>
+                  <select name="state" class="form-control font-weight-light border-dark">
+                    <option value="" selected hidden>Select State...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                  <br>
+                  <p class="font-weight-light">Zip</p>
+                  <input type="number" name="zip" class="font-weight-light border-dark form-control">
+
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-number" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Phone Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form action="admin-update~phone" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="phone" class="font-weight-light border-dark form-control" value="{{phone}}"
+                    required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-lic" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company LIC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-update~lic" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="lic" class="font-weight-light border-dark form-control" value="{{lic}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-website" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Website</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-update~website" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="website" class="font-weight-light border-dark form-control"
+                    value="{{website}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+        <div class="modal fade" id="exampleModalCenter-logo" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Logo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="update-logo" method="POST" enctype="multipart/form-data">
+              <input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="file" class="form-control-file" name="logo" accept="image/jpg, image/jpeg, image/png"
+                    required>
+                </div>
+                <div class="modal-footer">
+                  <input type="submit" value="Save changes" class="btn btn-success">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br><br>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

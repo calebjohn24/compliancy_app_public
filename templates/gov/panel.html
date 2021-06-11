@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+    <link rel="manifest" href="../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/kt-2.5.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <title>Sentinel Fire Watch</title>
+    <script>
+        var clickVal = '#{{click}}';
+        // var clickVal = '#reports-tab';
+        if (clickVal != "None") {
+            jQuery(function () {
+                jQuery(clickVal).click();
+            });
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            // $('table.display').DataTable();
+            $('#system-table').DataTable();
+            $('#log-table').DataTable();
+            $('#comp-table').DataTable();
+            $('#form-table').DataTable();
+            $('#question-table').DataTable();
+        });
+    </script>
+    <div class="text-center container-fluid">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark text-left">
+
+            <ul class="nav navbar-nav mr-auto nav-pills-dark" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active font-weight-light text-light" id="home-tab" data-toggle="tab"
+                        href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="reports-tab" data-toggle="tab" href="#reports"
+                        role="tab" aria-controls="reports" aria-selected="false">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="systems-tab" data-toggle="tab" href="#systems"
+                        role="tab" aria-controls="systems" aria-selected="false">Systems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="companies-tab" data-toggle="tab"
+                        href="#companies" role="tab" aria-controls="companies" aria-selected="false">Companies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="info-tab" data-toggle="tab" href="#info"
+                        role="tab" aria-controls="info" aria-selected="false">Info</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="form-tab" data-toggle="tab" href="#form"
+                        role="tab" aria-controls="form" aria-selected="false">Forms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link font-weight-light text-light" id="contact-tab" data-toggle="tab" href="#contact"
+                        role="tab" aria-controls="contact" aria-selected="false">Contact Support</a>
+                </li>
+            </ul>
+            <a class="navbar-brand text-light font-weight-light" href="/fire-admin/{{zone}}/panel">{{zone}}
+
+            </a>
+        </nav>
+
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="requests">
+                <br>
+                <h3 class="font-weight-light">Requests <i class="fas fa-bell fa-lg"></i></h3>
+                <br>
+                <div class="row">
+
+                    <div class="col">
+
+                        <div class="card">
+                            <h5 class="card-header bg-dark text-light font-weight-light">Companies <i
+                                    class="fas fa-users"></i></h5>
+                            <div class="card-body text-left">
+
+
+                                {% if comp_reqs != {} %}
+
+
+
+                                {% for k_cr, v_cr in comp_reqs.items() %}
+
+                                <a class="btn btn-lg btn-primary"
+                                    href="/fire-admin/{{zone}}/comp-register/{{v_cr}}">{{v_cr}}</a>
+                                <br>
+                                <br>
+
+                                {% endfor %}
+                                {% else %}
+
+                                <h6 class="font-weight-light">No New Companies</h6>
+
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+
+                        <div class="card">
+                            <h5 class="card-header bg-dark text-light font-weight-light">Systems <i
+                                    class="fas fa-fire-extinguisher"></i></h5>
+                            <div class="card-body text-left">
+
+
+
+                                {% if system_reqs != {} %}
+
+
+
+                                {% for k_hr, v_hr in system_reqs.items() %}
+
+                                <a class="btn btn-lg btn-secondary"
+                                    href="/fire-admin/{{zone}}/system-register/{{v_hr}}">{{v_hr}}</a></h5><br>
+                                <br>
+
+                                {% endfor %}
+
+                                {% else %}
+
+                                <h6 class="font-weight-light">No New Systems</h6>
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h5 class="card-header font-weight-light bg-dark text-light">Reports <i
+                                    class="fas fa-clipboard-list"></i></h5>
+                            <div class="card-body text-left font-weight-light">
+                                {% if report_reqs != {} %}
+
+                                {% for k_rep, v_rep in report_reqs.items() %}
+
+                                <a class="btn btn-lg btn-secondary font-weight-light"
+                                    href="/fire-admin/{{zone}}/check-report/{{k_rep}}">
+                                    <p class="font-weight-light">
+                                        {{v_rep.system}} <small class="font-weight-light">{{v_rep.comp}}</small></p>
+                                </a><br><br>
+
+                                {% endfor %}
+
+                                {% else %}
+
+                                <h6 class="font-weight-light">No New Reports</h6>
+
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab"><br>
+
+                <h3 class="font-weight-light">Reports <i class="fas fa-clipboard-list fa-lg"></i></h3>
+                <hr>
+                <table id="log-table" class="display table-striped table-bordered font-weight-light" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>system ID <i class="fas fa-sort"></i></th>
+                            <th>Company <i class="fas fa-sort"></i></th>
+                            <th>Date <i class="fas fa-sort"></i></th>
+                            <th>Type <i class="fas fa-sort"></i></th>
+                            <th>Tag <i class="fas fa-sort"></i></th>
+                            <th>View <i class="fas fa-sort"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for  k, v in reports.items() %}
+                        {% if v.complete == 0%}
+                        <tr>
+                            <td>{{v.system}}</td>
+                            <td> {{v.comp}}</td>
+                            <td>{{v.time_stamp}}</td>
+                            <td>{{v.type}}</td>
+                            <td>{{v.tag}}</td>
+                            <td><a class="btn btn-success" href="/{{zone}}/view-report/{{k}}/{{v.token}}/fire-admin"><i
+                                        class="fas fa-eye"></i></a></td>
+
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+
+                        <br>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab"><br>
+                <h3 class="font-weight-light">Info <i class="fas fa-info-circle"></i></h3>
+                <br>
+
+                <div class="row">
+
+                    <div class="col">
+
+                        <div class="card">
+                            <h5 class="card-header bg-dark text-light font-weight-light">Jurisdiction Info</h5>
+                            <div class="card-body font-weight-light text-left">
+
+                                <h6 class="font-weight-light">Companies Approved: {{companies|length}}</h6>
+                                <br>
+                                <h6 class="font-weight-light">Systems Registered: {{systems|length}}</h6><br>
+                                <h6 class="font-weight-light">State: {{info.state}}</h6>
+                                <br>
+                                <h6 class="font-weight-light">Phone: {{info.phone}} <button class="btn btn-primary"
+                                        type="button" data-toggle="modal" data-target="#phone-change">
+                                        <i class="fas fa-edit"></i>
+                                    </button></h6>
+                                <br>
+
+                                <div class="modal fade" id="phone-change" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Change Jurisdiction Phone Number
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body font-weight-light">
+                                                <form action="change-phone" method="POST">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                    <p>Enter Phone Number</p>
+                                                    <input class="tel border-dark font-weight-light form-control"
+                                                        name="phone">
+                                                    <br>
+                                                    <br>
+                                                    <input class="btn btn-lg btn-success font-weight-light"
+                                                        value="Change" type="submit">
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h6 class="font-weight-light">Mandate Certification: {{info.check_cert|capitalize}}
+                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                        data-target="#cert-change">
+                                        <i class="fas fa-edit"></i>
+                                    </button></h6>
+
+                                <div class="modal fade" id="cert-change" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Mandate Certifications
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body font-weight-light">
+                                                <form action="change-cert" method="POST">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                    <input type="hidden" name="type" value="comp" />
+                                                    <p class="font-weight-light">Mandate Companies Be Certified To
+                                                        Perform Inspections</p>
+
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <button type="submit"
+                                                                class="btn btn-lg btn-success font-weight-light"
+                                                                value="yes" name="cert">Yes</button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <button type="submit"
+                                                                class="btn btn-lg btn-danger font-weight-light"
+                                                                value="no" name="cert">No</button>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h6 class="font-weight-light">Mandate Technician Certification:
+                                    {{info.check_tech_cert|capitalize}}
+                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                        data-target="#tech-cert-change">
+                                        <i class="fas fa-edit"></i>
+                                    </button></h6>
+
+                                <div class="modal fade" id="tech-cert-change" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Mandate Certifications
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body font-weight-light">
+                                                <form action="change-cert" method="POST">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                    <input type="hidden" name="type" value="tech" />
+                                                    <p class="font-weight-light">Mandate Technicians Be Certified To
+                                                        Perform Inspections</p>
+
+                                                    <br>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <button type="submit"
+                                                                class="btn btn-lg btn-success font-weight-light"
+                                                                value="yes" name="cert">Yes</button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <button type="submit"
+                                                                class="btn btn-lg btn-danger font-weight-light"
+                                                                value="no" name="cert">No</button>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col">
+
+                        <div class="card">
+                            <h5 class="card-header bg-dark text-light font-weight-light">Your Account</h5>
+                            <div class="card-body font-weight-light text-left">
+                                <h6 class="font-weight-light">Name: {{name}}</h6>
+                                <h6 class="font-weight-light">Email: {{email}}</h6>
+                                <h6 class="font-weight-light">Phone: {{number}} <button type="button"
+                                        class="btn btn-primary" data-toggle="modal" data-target="#m2fa-phone">
+                                        <i class="fa fa-edit"></i>
+                                    </button></h6>
+
+                                <div class="modal fade" id="m2fa-phone" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Edit Phone Number</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="change-2fa-phone" method="POST"><input type="hidden"
+                                                    name="csrf_token" value="{{ csrf_token() }}" />
+                                                <div class="modal-body">
+                                                    <p class="font-weight-light">Enter New Phone Number:</p>
+                                                    <br>
+                                                    <small>123-444-5555</small><br>
+                                                    <input class="text border-dark form-control font-weight-light"
+                                                        type="tel" id="phone" name="phone"
+                                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Change</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col">
+
+                        <div class="card">
+                            <h5 class="card-header bg-dark text-light font-weight-light">Other Accounts</h5>
+                            <div class="card-body font-weight-light text-left">
+
+                                <button class="btn btn-lg btn-success font-weight-light" data-toggle="modal"
+                                    data-target="#add-acct">Add
+                                    Account
+                                    <i class="fas fa-plus"></i>
+                                </button>
+
+
+                                <div class="modal fade" id="add-acct" tabindex="-1" role="dialog"
+                                    aria-labelledby="add-acct" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Enter Email</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="add-acct" method="POST">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                <div class="modal-body font-weight-light">
+                                                    <p>We'll send an email to this address so they can setup their
+                                                        account</p>
+                                                    <br>
+                                                    <input type="email"
+                                                        class="font-weight-light border-dark form-control" class="email"
+                                                        name="email">
+                                                    <br><br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                {% for k_a, v_a in accounts.items() %}
+                                <form action="rem-acct" method="POST">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <h6 class="font-weight-light">Email: {{v_a.email}} </h6>
+                                    {% if v_a.pw == "pending" %}
+                                    <small class="text-warning font-weight-light">Pending</small>
+                                    {% endif %}
+                                    <h6 class="font-weight-light">Name: {{v_a.name}}</h6><br>
+                                    <button type="submit" class="btn btn-danger font-weight-light" name="acct"
+                                        value="{{k_a}}">Remove
+                                        Account <i class="fas fa-times-circle"></i></button>
+                                </form>
+                                <br><br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="systems" role="tabpanel" aria-labelledby="system-tab"><br>
+
+                <h3 class="font-weight-light">Systems <i class="fas fa-fire-extinguisher fa-lg"></i></h3>
+                <br>
+                <table id="system-table" class="display table-striped table-bordered text-left" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th class="font-weight-bold">ID <i class="fas fa-sort"></i></th>
+                            <th class="font-weight-bold">Owner <i class="fas fa-sort"></i></th>
+                            <th class="font-weight-bold">Date <i class="fas fa-sort"></i></th>
+                            <th class="font-weight-bold">Brand <i class="fas fa-sort"></i></th>
+                            <th class="font-weight-bold">Tag <i class="fas fa-sort"></i></th>
+                            <th class="font-weight-bold">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k1,v1 in systems.items() %}
+                        {% if v1.zone == zone %}
+                        <tr>
+                            <td><a class="btn btn-primary" href="view-system/{{k1}}"><i class="fas fa-info"></i></a>
+                                {{k1}}
+
+                            </td>
+                            <td class="font-weight-light">{{v1.name}} </td>
+                            <td class="font-weight-light">{{v1.time_stamp}}</td>
+                            <td class="font-weight-light">{{v1.brand}}</td>
+                            <td class="font-weight-light">{{v1.tag}}</td>
+                            {% if v1.active == 'yes' %}
+                            <td class="font-weight-light"><button type="button" class="btn btn-success"
+                                    data-toggle="modal" data-target="#rem-system-modal-{{k1}}">
+                                    <i class="fas fa-times-circle"></i>
+                                </button></td>
+                            {% else %}
+                            <td>
+                                <form action="change-system" method="POST">
+                                    <input type="hidden" name="system" value="{{k1}}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <button class="btn btn-danger" name="type" value="activate"><i
+                                            class="fas fa-power-off"></i></button>
+                            </td>
+                            {% endif %}
+                        </tr>
+
+                        <div class="modal fade" id="rem-system-modal-{{k1}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                            Change System Status</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="change-system" method="POST">
+                                        <input type="hidden" name="system" value="{{k1}}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <div class="modal-body">
+                                            <small class="font-weight-light">Permanently Delete System</small><br><br>
+                                            <button type="submit" name="type" value="delete"
+                                                class="btn btn-lg font-weight-light btn-danger">
+                                                Delete <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <hr>
+                                            <small class="font-weight-light">Temporarily Deactivate
+                                                System</small><br><br>
+                                            <button type="submit" name="type" value="deactivate"
+                                                class="btn btn-lg font-weight-light btn-danger">
+                                                Deactivate <i class="fas fa-trash-restore"></i></i>
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% endfor %}
+
+
+                        <br>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="companies" role="tabpanel" aria-labelledby="companies-tab"><br>
+                <h3 class="font-weight-light">Companies <i class="fas fa-users fa-lg"></i></h3>
+                <hr>
+                <table id="comp-table" class="display table-striped table-bordered text-left" style="width:100%">
+                    <thead>
+                        <br>
+                        <tr>
+                            <th>ID <i class="fas fa-sort"></i></th>
+                            <th>Name <i class="fas fa-sort"></i></th>
+                            <th>LIC <i class="fas fa-sort"></i></th>
+                            <th>Deauth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for  k, v in companies.items() %}
+                        <tr>
+                            <td><a class="btn btn-primary btn-primary" href="view-comp/{{k}}"><i
+                                        class="fas fa-info"></i></a> {{k}}</td>
+                            <td>{{v.display}}</td>
+                            <td>{{v.lic}}</td>
+                            <form action="deauth-comp" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <td><button class="btn btn-danger" type="submit" name="comp" value="{{k}}"><i
+                                            class="fas fa-times-circle"></i></button></td>
+                            </form>
+
+
+                        </tr>
+                        {% endfor %}
+
+
+                        <br>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab"><br>
+
+                <button class="btn btn-success btn-lg font-weight-light" data-toggle="modal"
+                    data-target="#addformmodal">Add Form <i class="fa fa-plus-square"></i></button>
+                <div class="modal fade" id="addformmodal" tabindex="-1" role="dialog" aria-labelledby="addformmodal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Form</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="add-form" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <div class="modal-body">
+                                    <h5 class="font-weight-light">Enter Form Name <input type="text"
+                                            class="font-weight-light form-control border-dark" name="form-name"
+                                            required></h5>
+                                    <br>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <table id="form-table" class="display table-striped table-bordered text-left" style="width:100%">
+                    <thead>
+                        <br>
+                        <tr>
+                            <th>ID <i class="fas fa-sort"></i></th>
+                            <th>Name <i class="fas fa-sort"></i></th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for k_form, v_form in forms.items() %}
+                        <tr>
+                            <td>{{k_form}}
+                            </td>
+                            <td>{{v_form.name}}</td>
+                            <td><a class="btn btn-primary" href="edit-form/{{k_form}}"><i class="fa fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <form action="rem-form" method="POST">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <button type="submit" class="btn btn-danger" name="rem" value="{{k_form}}"><i
+                                            class="fa fa-times-circle"></i></button>
+                                </form>
+                            </td>
+
+
+                        </tr>
+                        {% endfor %}
+
+
+                        <br>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <br>
+                <form method="POST" action="/contact-support">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <div class="alert alert-success" role="alert">
+                        <h6 class="text-dark font-weight-light">Green <small class="font-weight-light">(General
+                                Question)</small>
+                            <input class="radio" type="radio" name="severity" value="green" required></h6>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert">
+                        <h6 class="text-dark font-weight-light">Yellow <small class="font-weight-light">(Urgent
+                                Question)</small>
+                            <input class="radio" type="radio" name="severity" value="yellow" required></h6>
+                    </div>
+
+                    <div class="alert alert-danger" role="alert">
+                        <h6 class="text-dark font-weight-light">Red <small class="font-weight-light">(Immediate Action
+                                Needed,
+                                Service Compromised)</small>
+                            <input class="radio" type="radio" name="severity" value="red" required></h6>
+                    </div>
+                    <br>
+                    <p class="font-weight-light border-dark">Tell us about your question/problem</p>
+                    <input type="hidden" name="type" value="fire-admin">
+                    <input type="hidden" name="name" value="{{zone}}">
+                    <input type="hidden" name="user" value="{{email}}">
+                    <textarea class="border-dark" name="issue" rows="15" cols="50" required> </textarea>
+                    <br><br>
+                    <button class="btn btn-lg btn-secondary font-weight-light" type="ssubmit" value="Send">Send <i
+                            class="fas fa-paper-plane"></i></button>
+
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <br>
+        <br>
+        <br>
+    </div>
+</body>

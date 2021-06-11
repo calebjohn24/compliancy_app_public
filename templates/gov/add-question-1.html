@@ -1,0 +1,195 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Add Question
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+<script>
+    function add_mul() {
+        document.getElementById("demo-mul").innerHTML = "<br>";
+        var x = parseInt(document.getElementById("myText-mul").value);
+        var val = ""
+        if (x >= 1) {
+            var val = '<input type="hidden" name="mul" value=' + (x) + '>'
+            for (i = 1; i < (x + 1); i++) {
+                val += '<h4 class="font-weight-light">Enter Multiple Choice Response ' + (i) +
+                    ' </h4><input type="text" class="border-dark font-weight-light form-control" name=mul-name-' + (
+                        i - 1) + ' required>' + '</h4><br><br><h4 class="font-weight-light">Select Color</h4><br>'
+                val += '<h5 class="text-danger font-weight-light">Red <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="danger" required></h5><br>'
+                val += '<h5 class="text-warning font-weight-light">Yellow <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="warning" required></h5><br>'
+                val += '<h5 class="text-success font-weight-light">Green <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="success" required></h5><br>'
+                val += '<h5 class="text-primary font-weight-light">Blue <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="primary" required></h5><br>'
+                val += '<h5 class="font-weight-dark">White <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="dark" required></h5><br>'
+                val += '<h5 class="text-secondary font-weight-light">Gray <input name=mul-color-' + (i - 1) +
+                    ' type="radio" value="secondary" required></h5><br><br>'
+                val += '<h5 class="font-weight-light">Add Popup For Response ' + (i) +
+                    ' <small>(optional)</small> <input class="font-weight-light border-dark form-control" name=mul-popup-' + (
+                        i - 1) + ' type="text"</h5><br><br>'
+                val += '<h5 class="font-weight-light">Add Auto Tagging For Response ' + (i) +
+                    ' <small>(optional)</small></h5><br>'  
+                val += '<h5 class="text-danger font-weight-light">Red <input name=mul-tag-' + (i - 1) +
+                    ' type="radio" value="red" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-warning font-weight-light">Yellow <input name=mul-tag-' + (i - 1) +
+                    ' type="radio" value="yellow" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-dark font-weight-light">White <input name=mul-tag-' + (i - 1) +
+                    ' type="radio" value="white" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-secondary font-weight-light">None <input name=mul-tag-' + (i - 1) +
+                    ' type="radio" value="no" class="font-weight-light border-dark" checked required></h5><br><br><br><br>'
+            }
+            document.getElementById("demo-mul").innerHTML = val;
+        }
+    }
+
+    function add_check() {
+        document.getElementById("demo-check").innerHTML = "<br>";
+        var x = parseInt(document.getElementById("myText-check").value);
+        var val = ""
+        if (x >= 1) {
+            var val = ""
+            var val = '<input type="hidden" name="check" value=' + (x) + '>'
+            for (i = 1; i < (x + 1); i++) {
+                val += '<h4 class="font-weight-light">Enter Checkbox Choice Response ' + (i) +
+                    ' </h4><input type="text" class="border-dark font-weight-light form-control" name=check-name-' + (
+                        i - 1) + ' required>' + '</h4><br><br> <h4 class="font-weight-light">Select Color</h4><br>'
+                val +=
+                    '<h5 class="text-danger font-weight-light">Red <input class="font-weight-light" name=check-color-' +
+                    (i - 1) +
+                    ' type="radio" value="danger" required></h5><br>'
+                val += '<h5 class="text-warning font-weight-light">Yellow <input name=check-color-' + (i - 1) +
+                    ' type="radio" value="warning" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-success font-weight-light">Green <input name=check-color-' + (i - 1) +
+                    ' type="radio" value="success" required></h5><br>'
+                val += '<h5 class="text-primary font-weight-light">Blue <input name=check-color-' + (i - 1) +
+                    ' type="radio" value="primary" required></h5><br>'
+                val += '<h5 class="font-weight-dark">White <input name=check-color-' + (i - 1) +
+                    ' type="radio" value="dark" required></h5><br>'
+                val += '<h5 class="text-secondary font-weight-light">Gray <input name=check-color-' + (i - 1) +
+                    ' type="radio" value="secondary" required></h5><br><br>'
+                val += '<h5 class="font-weight-light" >Add Popup For Response ' + (i) +
+                    ' <small>(optional)</small> <input class="font-weight-light border-dark form-control" name=check-popup-' +
+                    (i - 1) + ' type="text"</h5><br><br><br>'
+                val += '<h5 class="font-weight-light">Add Auto Tagging For Response ' + (i) +
+                    ' <small>(optional)</small></h5><br>'  
+                val += '<h5 class="text-danger font-weight-light">Red <input name=check-tag-' + (i - 1) +
+                    ' type="radio" value="red" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-warning font-weight-light">Yellow <input name=check-tag-' + (i - 1) +
+                    ' type="radio" value="yellow" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-dark font-weight-light">White <input name=check-tag-' + (i - 1) +
+                    ' type="radio" value="white" class="font-weight-light border-dark" required></h5><br>'
+                val += '<h5 class="text-secondary font-weight-light">None <input name=check-tag-' + (i - 1) +
+                    ' type="radio" value="no" class="font-weight-light border-dark" checked required></h5><br><br><br><br>'
+            }
+            document.getElementById("demo-check").innerHTML = val;
+        }
+    }
+</script>
+
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+    
+<br>Add Question</h1>
+<br>
+
+        <br>
+        <h5 class="font-weight-light">Set Responses</h5>
+        <br>
+        <form action="add-question-resp" method="POST"><input type="hidden" name="csrf_token"
+                value="{{ csrf_token() }}" />
+            <div class="card container-fluid">
+                <div class="card-header bg-dark text-light font-weight-bold">
+                    Enter Number Multiple Choice of Responses
+                </div>
+
+                {% for k,v in rsp.items() %}
+                {% if v == 'mul' %}
+
+                <br><br>
+                <input type="number" id="myText-mul" min="2" class="w-50 mx-auto border-dark text-center form-control" required>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-info w-25 mx-auto" onclick="add_mul()">Next</button><br><br>
+                <div id="demo-mul"></div>
+            </div>
+            
+            <br>
+
+            {% elif v == 'checkbox' %}
+            <div class="card container-fluid">
+                <div class="card-header bg-dark text-light font-weight-bold">
+                    Enter Number Checkbox Choice of Responses
+                </div>
+                <br>
+                <input type="number" class="w-50 mx-auto font-weight-light border-dark text-center form-control" id="myText-check"
+                    min="2" required>
+                <br>
+                <br>
+                <button class="btn btn-lg btn-info font-weight-light w-25 mx-auto"
+                    onclick="add_check()">Next</button><br><br>
+                <div id="demo-check"></div>
+            </div>
+            <br>
+
+            {% elif v == 'text' %}
+            <br><br><br>
+            <div class="card container-fluid">
+                <div class="card-header bg-dark text-light font-weight-bold">
+                    Add Label for Text Box
+                </div>
+                <br>
+                <br>
+                <input class="text w-50 font-weight-light text-center mx-auto border-dark form-control" type="text"
+                    name="text-label"><br><br><br>
+            </div>
+            <br>
+            {% elif v == 'file' %}
+            <br>
+            <br><br>
+            <div class="card container-fluid">
+                <div class="card-header bg-dark text-light font-weight-bold">
+                    Enter Label for Image Upload
+                </div>
+                <br>
+                <br>
+                <input class="text border-dark font-weight-light w-50 text-center mx-auto form-control" type="text"
+                    name="file-label">
+                <br><br>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            {% endif %}
+
+            {% endfor %}
+            <br>
+            <br>
+            <br><button type="submit" class="btn btn-lg font-weight-light btn-success">Next</button>
+
+            <br>
+
+        </form>
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}
+
+
+

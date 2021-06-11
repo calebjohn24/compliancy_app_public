@@ -1,0 +1,111 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block main %}
+    <!--Page code here-->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-success-800">
+
+        <br>Technician Registrations</h1><br>
+
+    {% for l in log_keys %}
+
+        <div class="card shadow mb-4 w-90 mx-auto">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-success">System Registration Performance
+                    <small>{{ logs[l]['start_date'] }} - {{ logs[l]['end_date'] }}</small></h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+
+                <canvas id="system-chart-{{ l }}"></canvas>
+                <script>
+                    var randomColorGenerator = function () {
+                        return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+                    };
+
+                    new Chart(document.getElementById("system-chart-{{ l }}"), {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                {% for usr in logs[l]['users'] %}
+
+                                    "{{ logs[l]['users'][usr]['name'] }}",
+
+                                {% endfor %}
+                            ],
+                            datasets: [
+                                {
+                                    label: "Systems Registered",
+                                    backgroundColor: [
+                                        {% for usr in logs[l]['users'] %}
+
+                                            randomColorGenerator(),
+
+                                        {% endfor %}
+
+                                    ],
+                                    data: [
+                                        {% for usr in logs[l]['users'] %}
+
+                                            {{ logs[l]['users'][usr]['systems'] }},
+
+                                        {% endfor %}
+                                    ]
+                                }
+                            ]
+                        },
+                        options: {
+                            legend: {display: false},
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true,
+                                        callback: function (value) {
+                                            if (value % 1 === 0) {
+                                                return value;
+                                            }
+                                        }
+                                    }
+
+                                }]
+                            },
+                            title: {
+                                display: false,
+                                text: 'Systems Registered'
+                            }
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+    {% block script %}
+
+        <script>
+            var randomColorGenerator = function () {
+                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+            };
+        </script>
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

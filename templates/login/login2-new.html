@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/Logo_no_bg.png') }}">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Login</title>
+
+    <!-- Custom fonts for this template-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+        type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.slim.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script>
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper bg-gradient-danger">
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column bg-danger">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid bg-danger">
+
+
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 bg-danger">
+
+                            <div class="card o-hidden border-0 shadow-lg my-5">
+                                <div class="card-body p-0">
+                                    <!-- Nested Row within Card Body -->
+                                    <div>
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h1 class="h4 font-weight-light text-gray-900 mb-4">Incorrect Password</h1><br>
+                                                <h3 class="h5 font-weight-light text-gray-900 mb-4">Please Try Again</h3>
+                                            </div>
+                                            <form method="POST" action="/login-check">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                                                <input type="email"
+                                                    class="font-weight-light form-control border-secondary"
+                                                    placeholder="Enter Email Address..." name="email" required>
+
+                                                <br>
+
+                                                <input type="password"
+                                                    class="font-weight-light form-control border-secondary"
+                                                    placeholder="Password" name="pw" required>
+                                                <br>
+                                                <br>
+
+
+
+
+                                                <button type="submit"
+                                                    class="btn btn-danger font-weight-light btn-user btn-block">Login</button>
+                                            </form>
+                                            <br>
+                                            <hr>
+                                            <br>
+                                            <div class="text-center text-dark">
+                                                <button class="btn btn-lh btn-primary font-weight-light"
+                                                    data-toggle="modal" data-target="#exampleModal">Forgot
+                                                    Password?</button>
+                                            </div>
+
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title font-weight-light"
+                                                                id="exampleModalLabel">Reset Password</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form method="POST" action="/admin-2fa">
+                                                            <input type="hidden" name="csrf_token"
+                                                                value="{{ csrf_token() }}" />
+                                                            <div class="modal-body">
+                                                                <h4 class="font-weight-light">Enter Account Email</h4>
+                                                                <input class="border-dark form-control" type="email"
+                                                                    name="email" required>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" value="Reset"
+                                                                    class="btn btn-primary font-weight-light">Reset</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-danger">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto text-light">
+                        <span>Copyright &copy; Sentinel Firewatch 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+
+    <!-- Bootstrap core JavaScript-->
+
+
+</body>
+
+</html>

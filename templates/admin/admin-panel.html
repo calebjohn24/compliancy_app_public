@@ -1,0 +1,488 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+    {{ comp_name }} Admin Panel
+
+{% endblock %}
+<!--Set Title-->
+{% block main %}
+    <!--Page code here-->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800"><br>{{ comp_name }} Admin Panel</h1>
+    <br>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Company Id</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ id }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <img height="60" src="{{ logo }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Systems Registered
+                                <small>This Cycle</small></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ logs[log_key]['systems'] }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-fire-extinguisher fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Reports Filed <small>This
+                                Cycle</small></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ logs[log_key]['reports'] }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Current Cycle</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ logs[log_key]['start_date'] }}
+                                to {{ logs[log_key]['end_date'] }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content Row -->
+
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-4 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success">Systems Registration Trends</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="past-reg-data">View Past Data</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+
+                    <canvas id="system-month-chart"></canvas>
+
+                    <script>
+                        var x = new Chart(document.getElementById("system-month-chart"), {
+                            type: 'line',
+                            data: {
+                                labels: [
+                                    {% for keys in logs %}
+                                        "{{logs[keys]['end_date']}}",
+                                    {% endfor %}
+                                ],
+                                datasets: [{
+                                    label: 'Systems Registered',
+                                    data: [
+                                        {% for keys in logs %}
+                                            {{ logs[keys]['systems'] }},
+                                        {% endfor %}
+                                    ],
+                                    backgroundColor: "rgb(24,220,149)"
+                                }]
+                            },
+                            options: {
+                                legend: {display: false},
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function (value) {
+                                                if (value % 1 === 0) {
+                                                    return value;
+                                                }
+                                            }
+                                        }
+
+                                    }]
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Systems Registered'
+                                }
+                            }
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-4">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Reports Filing Trends</h6>
+                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="past-report-data">View Past Data</a>
+                                        </div>
+                                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="report-month-chart"></canvas>
+
+                    <script>
+                        var x = new Chart(document.getElementById("report-month-chart"), {
+                            type: 'line',
+                            data: {
+                                labels: [
+                                    {% for keys in logs %}
+                                        "{{logs[keys]['end_date']}}",
+                                    {% endfor %}
+                                ],
+                                datasets: [{
+                                    label: 'Reports Filed',
+                                    data: [
+                                        {% for keys in logs %}
+                                            {{logs[keys]['reports']}},
+                                        {% endfor %}
+                                    ],
+                                    backgroundColor: "rgba(51,71,255,0.4)"
+                                }]
+                            },
+                            options: {
+                                legend: {display: false},
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function (value) {
+                                                if (value % 1 === 0) {
+                                                    return value;
+                                                }
+                                            }
+                                        }
+
+                                    }]
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Reports Filed'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-dark">Tag Breakdown <small>This Cycle</small></h6>
+                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="past-tag-data">View Past Data</a>
+                                        </div>
+                                    </div>
+
+                </div>
+                <!-- Card Body -->
+                <div class="chart-pie pt-4 pb-2">
+                    {% if logs[log_key]['tags']['red'] == 0 and logs[log_key]['tags']['yellow'] == 0 and logs[log_key]['tags']['white'] == 0 %}
+
+                        <h4 class="font-weight-light">No Reports Have Been Filed This Cycle</h4><br>
+
+                    {% else %}
+                        <canvas id="tag_chart"></canvas>
+                        <script>
+                            // Set new default font family and font color to mimic Bootstrap's default styling
+                            Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                            Chart.defaults.global.defaultFontColor = '#858796';
+
+                            // Pie Chart Example
+                            var ctx = document.getElementById("tag_chart");
+                            let tag_dict = new Map();
+                            // {{logs[log_key]['tags']}}
+                            var myPieChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ["Red", "Yellow", "White"],
+                                    datasets: [{
+
+                                        data: [{{ logs[log_key]['tags']['red'] }}, {{ logs[log_key]['tags']['yellow'] }}, {{ logs[log_key]['tags']['white'] }}],
+
+                                        backgroundColor: ["#e74a3b", "#f6c23e", "#858796"],
+                                        hoverBackgroundColor: ["#fa5858", "#ffeb7d", "#cfcfcf"],
+                                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                                    }],
+                                },
+                                options: {
+                                    maintainAspectRatio: false,
+                                    tooltips: {
+                                        backgroundColor: "rgb(255,255,255)",
+                                        bodyFontColor: "#858796",
+                                        borderColor: '#dddfeb',
+                                        borderWidth: 1,
+                                        xPadding: 15,
+                                        yPadding: 15,
+                                        displayColors: false,
+                                        caretPadding: 10,
+                                    },
+                                    legend: {
+                                        display: false
+                                    },
+                                    cutoutPercentage: 80,
+                                },
+                            });
+
+                        </script>
+                    {% endif %}
+                </div>
+                <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                      <i class="fas fa-circle text-warning"></i> Yellow
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-danger"></i> Red
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-secondary"></i> White
+                    </span>
+                </div>
+                </d>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success">System Registration Performance <small>This
+                        Cycle</small></h6>
+                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="past-tech-reg-data">View Past Data</a>
+                                        </div>
+                                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+
+                    <canvas id="system-chart"></canvas>
+                    <script>
+                        var randomColorGenerator = function () {
+                            return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+                        };
+
+                        new Chart(document.getElementById("system-chart"), {
+                            type: 'bar',
+                            data: {
+                                labels: [
+                                    {% for usr in logs[log_key]['users'] %}
+
+                                        "{{ logs[log_key]['users'][usr]['name'] }}",
+
+                                    {% endfor %}
+                                ],
+                                datasets: [
+                                    {
+                                        label: "Systems Registered",
+                                        backgroundColor: [
+                                            {% for usr in logs[log_key]['users'] %}
+
+                                                randomColorGenerator(),
+
+                                            {% endfor %}
+
+                                        ],
+                                        data: [
+                                            {% for usr in logs[log_key]['users'] %}
+
+                                                {{ logs[log_key]['users'][usr]['systems'] }},
+
+                                            {% endfor %}
+                                        ]
+                                    }
+                                ]
+                            },
+                            options: {
+                                legend: {display: false},
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function (value) {
+                                                if (value % 1 === 0) {
+                                                    return value;
+                                                }
+                                            }
+                                        }
+
+                                    }]
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Systems Registered'
+                                }
+                            }
+                        });
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Report Filing Performance <small>This Cycle</small>
+                    </h6>
+                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="past-tech-report-data">View Past Data</a>
+                                        </div>
+                                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="report-chart"></canvas>
+                    <script>
+                        var randomColorGenerator = function () {
+                            return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+                        };
+
+                        new Chart(document.getElementById("report-chart"), {
+                            type: 'bar',
+                            data: {
+                                labels: [
+                                    {% for usr in logs[log_key]['users'] %}
+
+                                        "{{ logs[log_key]['users'][usr]['name'] }}",
+
+                                    {% endfor %}
+                                ],
+                                datasets: [
+                                    {
+                                        label: "Reports Filed",
+                                        backgroundColor: [
+                                            {% for usr in logs[log_key]['users'] %}
+
+                                                randomColorGenerator(),
+
+                                            {% endfor %}
+
+                                        ],
+                                        data: [
+                                            {% for usr in logs[log_key]['users'] %}
+
+                                                {{ logs[log_key]['users'][usr]['reports'] }},
+
+                                            {% endfor %}
+                                        ]
+                                    }
+                                ]
+                            },
+                            options: {
+                                legend: {display: false},
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function (value) {
+                                                if (value % 1 === 0) {
+                                                    return value;
+                                                }
+                                            }
+                                        }
+
+                                    }]
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Reports Filed'
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% block script %}
+        <script>
+            var randomColorGenerator = function () {
+                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+            };
+        </script>
+    {% endblock %}
+
+    <!--END-->
+{% endblock %}

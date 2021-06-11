@@ -1,0 +1,58 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+    Contact Support
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Contact Support</h1><br>
+
+    <form method="POST" action="/contact-support">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="alert alert-success" role="alert">
+            <h6 class="text-dark font-weight-light">Green <small class="font-weight-light">(General Question)</small>
+              <input class="radio" type="radio" name="severity" value="green" required></h6>
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            <h6 class="text-dark font-weight-light">Yellow <small class="font-weight-light">(Urgent Question)</small>
+              <input class="radio" type="radio" name="severity" value="yellow" required></h6>
+          </div>
+
+          <div class="alert alert-danger" role="alert">
+            <h6 class="text-dark font-weight-light">Red <small class="font-weight-light">(Immediate Action Needed,
+                Service Compromised)</small>
+              <input class="radio" type="radio" name="severity" value="red" required></h6>
+          </div>
+          <br>
+          <p class="font-weight-light border-dark">Tell us about your question/problem</p>
+          <input type="hidden" name="type" value="comp">
+          <input type="hidden" name="name" value="{{id}}">
+          <input type="hidden" name="user" value="{{user_email}}">
+          <textarea class="border-dark font-weight-light" name="issue" rows="15" cols="50" required></textarea>
+          <br><br>
+          <button class="btn btn-lg btn-secondary font-weight-light" type="submit" value="Send">Send <i
+              class="fas fa-paper-plane"></i></button>
+
+        </form>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

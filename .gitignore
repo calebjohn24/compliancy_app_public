@@ -1,0 +1,15 @@
+/bin
+/lib
+/include
+/lib64
+/flask_session
+lib
+bin
+include
+lib64
+include
+sendgrid.env
+pyvenv.cfg
+tmp/
+.vscode/
+compliancy-app-firebase-adminsdk-bd193-f9c1957881.json

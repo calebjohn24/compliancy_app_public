@@ -1,0 +1,146 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+    View Administrators
+{% endblock %}
+
+{% block head %}
+
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+          type="text/css">
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+{% endblock %}
+<!--Set Title-->
+{% block main %}
+    <script>
+        $(document).ready(function () {
+            $('#log-table').DataTable({
+                "order": [[0, "asc"]]
+            });
+        });
+    </script>
+
+
+
+    <div class="card">
+              <h3 class="font-weight-light  text-light card-header  bg-dark">Administrators <i
+                  class="fas fa-user-shield fa-lg text-warning"></i></h3>
+              <div class="card-body"></div>
+
+
+
+
+
+              <button type="button" class="btn-lg btn-success font-weight-light" data-toggle="modal"
+                data-target="#exampleModalLong-add-admin">
+                Add Administrator <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong-add-admin" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Admin Acct.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="add-admin" method="POST"><input type="hidden" name="csrf_token"
+                      value="{{ csrf_token() }}" />
+                    <div class="modal-body bg-dark">
+                      <h4 class="font-weight-light text-light">Admin Email <small class="font-weight-light">(We'll Send
+                          Them An
+                          Email
+                          To
+                          Setup Their
+                          Account)</small>
+                        <br></h4>
+                      <input type="email" name="email" class="form-control font-weight-light" required>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="submit" value="Add" class="btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-warning">Company Administrators</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped dataTable" id="log-table" role="grid"
+                                   aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                               <thead>
+
+                  <tr>
+                    <th class="font-weight-bold">Name <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Email <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Phone <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Remove </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for k_a, v_a in admin_users.items() %}
+
+                  {% if v_a.type == 'admin' %}
+                  <tr>
+                    <td class="font-weight-light">{{v_a.name}}
+                    </td>
+                    <td class="font-weight-light">{{v_a.email}}
+                    </td>
+                    <td class="font-weight-light">{{v_a.phone}}
+                    </td>
+                    <td class="font-weight-light"><a href="rem_users~{{k_a}}" class="btn-danger btn-sm"><i
+                          class="fas fa-times-circle"></i></a></td>
+
+                  </tr>
+                  {% endif %}
+
+                  {% endfor %}
+
+
+
+                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    {% block script %}
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

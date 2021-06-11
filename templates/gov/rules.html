@@ -1,0 +1,159 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+    Rules
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+    <!--Page code here-->
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">
+
+        <br>Rules</h1>
+    <br>
+    <div class="card">
+        <h5 class="card-header text-light bg-secondary">Certify companies before they can perform inspections and
+            registrations <i class="fas fa-certificate"></i></h5>
+        <div class="card-body">
+            {% if info.check_cert == 'yes' %}
+                <h4 class="card-title text-success">Currently Mandated</h4>
+                <h6 class="font-weight-bold">Only companies you certify can perform inspections and registrations</h6>
+            {% elif info.check_cert == 'no' %}
+                <h4 class="card-title text-danger">Currently Not Mandated</h4>
+                <h6 class="font-weight-bold">Only companies you certify can perform inspections and registrations</h6>
+
+            {% endif %}
+            <small class="card-text">When this setting is changed all companies registered in your jurisdiction will be
+                notified</small><br><br>
+            <button class="btn btn-warning" type="button" data-toggle="modal"
+                    data-target="#cert-change">
+                Change <i class="fas fa-edit"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="cert-change" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                        Mandate Jurisdiction Certification
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body font-weight-light">
+                    <form action="change-cert" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="type" value="comp"/>
+
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit"
+                                        class="btn btn-lg btn-success font-weight-bold"
+                                        value="yes" name="cert">Mandate
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button type="submit"
+                                        class="btn btn-lg btn-danger font-weight-bold"
+                                        value="no" name="cert">Don't Mandate
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="card">
+        <h5 class="card-header text-light bg-secondary">Mandate technicians have brand certifications to perform
+            inspections and registrations <i class="fa fa-group"></i></h5>
+        <div class="card-body">
+            {% if info.check_tech_cert == 'yes' %}
+                <h4 class="card-title text-success">Currently Mandated</h4>
+                <h6 class="font-weight-bold">Technicians can only perform inspections and registrations on brands they
+                    have certifications for</h6>
+            {% elif info.check_tech_cert == 'no' %}
+                <h4 class="card-title text-danger">Currently Not Mandated</h4>
+                <h6 class="font-weight-bold">Technicians can perform inspections and registrations on any system</h6>
+
+            {% endif %}
+            <small class="card-text">When this setting is changed all companies registered in your jurisdiction will be
+                notified</small><br><br>
+            <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#tech-cert-change">
+                Change <i class="fas fa-edit"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="tech-cert-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                        Mandate Technician Certifications
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body font-weight-light">
+                    <form action="change-cert" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="type" value="tech"/>
+
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-lg btn-success font-weight-bold" value="yes"
+                                        name="cert">Mandate
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button type="submit" class="btn btn-lg btn-danger font-weight-bold" value="no"
+                                        name="cert">Don't Mandate
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+
+
+    <br>
+    <br>
+
+    {% block script %}
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

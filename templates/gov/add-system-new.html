@@ -1,0 +1,227 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Add System
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br><a class="btn btn-md btn-primary" href="/fire-admin/{{system_id}}/panel" role="button"><i class="fas fa-home"></i></a> Add System</h1>
+
+
+
+<div class="text-center"><br>
+
+
+<h4 class="font-weight-light text-dark"><i class="fas fa-tag"></i> System ID: {{system_id}}</h4>
+        <br>
+        <hr>
+        <br>
+        <a href="/fire-admin/{{zone}}/view-comp/{{system.reg_comp}}" target="_blank"><h5 class="font-weight-light"><i class="fas fa-building"></i> Registration Company: {{comp_name}} ({{system.reg_comp}})</h5></a>
+        <br>
+
+        {% if cert == 'yes' %}
+
+        <h5 class="font-weight-light">Company Certification: {{cert_brand}}</h5>
+        <br>
+        <img height="250" class="img-fluid" src={{cert_img}}>
+        <br>
+        <br>
+        <br>
+
+
+        {% endif %}
+
+
+
+
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light"><i class="fas fa-map-marked-alt"></i> {{system.addr}} {{system.city}}
+                    {{system.state}} {{system.zip}}</h6>
+            </div>
+
+            <iframe id="gmap_canvas"
+                src="https://maps.google.com/maps?q={{system.addr|replace(' ', '%20')}}%20{{system.state}}%20{{system.zip}}&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" height="500"></iframe>
+
+        </div>
+        <br>
+        <br>
+
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">System Info <i class="fas fa-info-circle fa-lg"></i></h6>
+            </div>
+            <div class="card-body text-left">
+                <br>
+                <h6 class="font-weight-light">Brand: <b>{{system.brand}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Model: <b>{{system.model}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Burners: <b>{{system.burner}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Location: <b>{{system.location}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Registered On: <b>{{system.time_stamp}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Inspection Frequency: <b>{{system.next_inspect}} Days</b>
+                <br>
+                <br>
+            </div>
+
+
+        </div>
+
+        <br>
+        <br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Contact Info <i class="fas fa-address-card fa-lg"></i></h6>
+            </div>
+
+            <div class="card-body text-left">
+                <br>
+                <h6 class="font-weight-light">Contact Name: <b>{{system.owner}}</b></h6>
+                <br>
+                <h6 class="font-weight-light">Business Name: <b>{{system.name}}</b></h6>
+                <br>
+                <h6 class="font-weight-light"><i class="fas fa-phone fa-lg"></i> <b>{{system.phone}}</b></h6>
+                <br>
+                <h6 class="font-weight-light"><i class="fas fa-envelope fa-lg"></i> <a
+                        href="mailto:{{system.email}}"><b>{{system.email}}</b></a></h6>
+                <br>
+                <br>
+            </div>
+
+        </div>
+        <br><br>
+        <div class="card">
+
+            <div class="card-header bg-dark text-light font-weight-light">
+                <h6 class="font-weight-light">Diagram <i class="fas fa-file-image fa-lg"></i></h6>
+            </div>
+        </div>
+        <img class="img-fluid" src="{{system.drawing}}">
+
+
+
+
+
+        <br>
+
+        <br>
+        <br><br>
+
+
+
+        <hr>
+        <br>
+        <br><br>
+
+        <div class="row">
+
+            <div class="col">
+
+                <form action="/fire-admin/{{zone}}/confirm-system" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input name="system" value="{{system_id}}" type="hidden">
+                    <input name="request_id" value="{{request_id}}" type="hidden">
+                    <button class="btn btn-lg btn-success font-weight-light" type="submit" name="confirm"
+                        value="yes">Approve</button>
+                </form>
+
+            </div>
+
+            <div class="col">
+
+
+                <button class="btn btn-lg btn-danger font-weight-light" data-toggle="modal"
+                    data-target="#exampleModalCenter">Reject</button>
+
+
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Reject System Request</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/fire-admin/{{zone}}/confirm-system" method="POST">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <input name="confirm" value="no" type="hidden">
+                                    <input name="system" value="{{system_id}}" type="hidden">
+                                    <input name="request_id" value="{{request_id}}" type="hidden">
+                                    <p class="font-weight-bold">Enter Reason For Rejecting This system</p><br>
+                                    <p>If This Is Just The Wrong Jurisdiction Please Recommend The Correct Jurisdiction in Your Rejection</p><br>
+                                    <textarea rows="15" cols="30" name="reason"
+                                        class="form-control border-dark font-weight-light" required></textarea>
+                                    <br>
+                                    <hr>
+                                    <button type="submit" class="btn btn-danger">Reject system</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+
+
+            </div>
+            <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+</div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

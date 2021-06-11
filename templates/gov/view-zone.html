@@ -1,0 +1,255 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Jurisdiction Info
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+    <br>Jurisidiction Info</h1><br>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header bg-dark text-light font-weight-light">Jurisidiction Administrators</h5>
+            <div class="card-body font-weight-light text-left">
+
+                <button class="btn btn-lg btn-success font-weight-light" data-toggle="modal" data-target="#add-acct">Add
+                    Account <i class="fas fa-plus"></i>
+                </button>
+                <div class="modal fade" id="add-acct" tabindex="-1" role="dialog" aria-labelledby="add-acct"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                    Enter Email</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="add-acct" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                <div class="modal-body font-weight-light">
+                                    <p>We'll send an email to this address so they can setup their account</p>
+                                    <br>
+                                    <input type="email" class="font-weight-light border-dark form-control email"
+                                        name="email">
+                                    <br><br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <br>
+                {% for k_a, v_a in users.items() %}
+                <form action="rem-acct" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <h6 class="font-weight-light">
+                        <h6 class="font-weight-light">Email:</h6>
+                        <h6 class="font-weight-bold">{{v_a.email}}</h6>
+                    </h6><br>
+                    {% if v_a.pw == "pending" %}
+                    <small class="text-warning font-weight-light">Pending</small>
+                    {% endif %}
+                    <h6 class="font-weight-light">
+                        <h6 class="font-weight-light">Name:</h6>
+                        <h6 class="font-weight-bold">{{v_a.name}}</h6>
+                    </h6><br><br>
+                    {% if k_a != user_id %}
+                    <button type="submit" class="btn btn-danger font-weight-light" name="acct" value="{{k_a}}">Remove
+                        Account <i class="fas fa-times-circle"></i></button>
+                    {% endif %}
+                </form>
+                <br>
+                <hr><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <h5 class="card-header bg-dark text-light font-weight-light">Jurisidiction Info</h5>
+            <div class="card-body font-weight-light text-left">
+
+                <h5 class="font-weight-bold">Logo: <button class="btn btn-md btn-primary" data-toggle="modal"
+                        data-target="#logo-modal"><i class="fas fa-edit"></i></button></h5><br>
+                <!-- Modal -->
+                <div class="modal fade" id="logo-modal" tabindex="-1" role="dialog" aria-labelledby="logo-modal-title"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="logo-modal-title">Change Logo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="update-logo" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <div class="modal-body">
+                                        <input type="file" class="form-control-file" name="logo"
+                                            accept="image/jpg, image/jpeg, image/png" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Change Logo" class="btn btn-success">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <img class="img-fluid" src="{{info.logo}}"><br>
+            <hr>
+            <br>
+            <h5 class="font-weight-bold">Contact Info: <button class="btn btn-md btn-primary" data-toggle="modal"
+                    data-target="#info-modal"><i class="fas fa-edit"></i></button></h5>
+            <br>
+            <h6>Street Address:<p class="font-weight-bold">{{info.addr}}</p>
+            </h6>
+            <br>
+            <h6>City:<p class="font-weight-bold">{{info.city}}</p>
+            </h6>
+            <br>
+            <h6>State:<p class="font-weight-bold">{{info.state}}</p>
+            </h6>
+            <br>
+            <h6>Phone:<p class="font-weight-bold">{{info.phone}}</p>
+            </h6>
+
+            <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="info-modal-title"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="info-modal-title">Change Contact Info</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="edit-contact-info" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                            <div class="modal-body">
+                                <h5 class="text-center font-weight-bold">Street Address</h5>
+                                <input class="border-dark form-control font-weight-light" name="addr"
+                                    value="{{info.addr}}"></input>
+                                <br>
+                                <h5 class="text-center font-weight-bold">City</h5>
+                                <input class="border-dark form-control font-weight-light" name="city"
+                                    value="{{info.city}}"></input>
+                                <br>
+                                <h5 class="text-center font-weight-bold">State</h5>
+                                <select name="state" class="form-control font-weight-light border-dark">
+                                    <option value="{{info.state}}" selected hidden>{{info.state}}</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="DC">District Of Columbia</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                                <br>
+                                <h5 class="text-center font-weight-bold">Phone Number</h5>
+                                <input type="tel" class="border-dark form-control font-weight-light" name="phone"
+                                    value="{{info.phone}}"></input>
+                                <br>
+
+
+
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                                <button class="btn btn-lg btn-success font-weight-light">Change Info</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
+<br>
+<br>
+<br>
+
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

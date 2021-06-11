@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href=".../../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href=".../../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href=".../../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href=".../../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href=".../../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href=".../../../static/img/Logo.png">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <title>Sentinel Fire Watch</title>
+    <script>
+        function check(id, text, color) {
+            document.getElementById(id).checked = true;
+            document.getElementById("mul-selected").className = 'text-' + color
+            document.getElementById("mul-selected").innerHTML = 'Selected: ' + text;
+        }
+
+        function check_box(id, text, color) {
+            var x = document.getElementById(id).checked;
+            document.getElementById("check-warn").className = 'text-dark'
+            if (x == false) {
+                document.getElementById(id).checked = true;
+                document.getElementById("check-disp-" + id).innerHTML = 'Selected';
+
+
+            } else {
+                document.getElementById(id).checked = false;
+                document.getElementById("check-disp-" + id).innerHTML = '';
+
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-center">
+
+            <br>
+            <div class="row">
+
+                <div class="col">
+                    <p class="font-weight-light">System #{{code}}</p>
+                </div>
+
+                <div class="col">
+                    {% if amend == 'no' %}
+                    <a class="btn font-weight-light  btn-danger" href="cancel-form/{{report_id}}"><i
+              class="fas fa-times-circle"></i></a> {% endif %}
+                </div>
+
+            </div>
+            <hr>
+            <br>
+            <br>
+            <form action="form" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <h4 class="font-weight-light">{{question.question}}</h4><br><br>
+                <hr> {% if question.file.data != 'none' %} {% if question.file.label != 'none' %}
+                <h5 class="font-weight-light">{{question.file.label}}</h5><br> {% endif %}
+
+                <a class="btn font-weight-light btn-primary btn-lg" target="_blank" href="{{question.file.data}}">View File <i
+            class="fas fa-file-alt"></i></a>
+                <br>
+
+                <br><br>
+                <hr> {% endif %} {% if question.img.data != 'none' %} {% if question.img.label != 'none' %}
+                <h5 class="font-weight-light">{{question.img.label}}</h5><br> {% endif %}
+
+                <img src="{{question.img.data}}" width="300">
+                <br><br>
+                <hr> {% endif %} {% for k,v in question.type.items() %} {% if k == 'mul' %}
+
+                <h6 class="text-warning" id="mul-selected">
+
+                    Please Select An Option
+
+                </h6>
+                <br> {% for k_a, v_a in v.ans.items() %} {% if question['type']['mul']['pop'][k_a] %}
+
+                <button type="button" class="btn font-weight-light  btn-lg btn-{{v_a.color}}" data-toggle="modal" data-target="#a{{k_a}}">
+          {{v_a.data}}
+        </button><br><br>
+
+                <!-- Modal -->
+                <div class="modal fade" id="a{{k_a}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-light" id="Title">Alert <small class="font-weight-light">{{v_a.data}}</small></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="font-weight-light">{{question['type']['mul']['pop'][k_a]['data']}}</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn font-weight-light btn-lg btn-{{v_a.color}} font-weight-light" onclick="check('{{k_a}}','{{v_a.data}}', '{{v_a.color}}')">Ok
+                </button><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input id="{{k_a}}" type="radio" name="mul-ans" value="{{v_a.data}}" required hidden> {% else %}
+
+                <button type="button" class="btn font-weight-light btn-lg btn-{{v_a.color}} font-weight-light" onclick="check('{{k_a}}','{{v_a.data}}', '{{v_a.color}}')">{{v_a.data}}
+        </button><br><br>
+
+
+                <input id="{{k_a}}" type="radio" name="mul-ans" value="{{v_a.data}}" required hidden>
+                <br> {% endif %} {% endfor %}
+
+                </h6>
+                <br>
+                <br>
+                <br> {% elif k == 'text' %} {% if v == 'True' %}
+
+                <textarea name="text-ans" class="font-weight-light border-dark font-weight-light" cols="30" rows="5" required></textarea>
+                <input type="hidden" name="text-caption" value="False"> {% else %}
+
+                <h6 class="font-weight-light">{{v}}</h6><br>
+
+                <textarea name="text-ans" class="font-weight-light border-dark font-weight-light" cols="30" rows="5" required></textarea>
+                <input type="hidden" name="text-caption" value="True"> {% endif %}
+                <br> {% elif k == 'check' %}
+
+                <h6 id="check-warn" class="text-warning">Select All Options That Apply</h6><br><br> {% for k_c, v_c in question['type']['check']['ans'].items() %} {% if question['type']['check']['pop'][k_c] %}
+
+                <button type="button" class="btn font-weight-light  btn-lg btn-{{v_c.color}} font-weight-light" data-toggle="modal" data-target="#a{{k_c}}">
+          {{v_c.data}}
+        </button><br><br>
+
+                <!-- Modal -->
+                <div class="modal fade" id="a{{k_c}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title font-weight-light" id="Title">Alert <small class="font-weight-light">{{v_c.data}}</small></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="font-weight-light">{{question['type']['check']['pop'][k_c]['data']}}</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn font-weight-light btn-lg btn-{{v_c.color}}" onclick="check_box('{{k_c}}','{{v_c.data}}', '{{v_c.color}}')">Ok
+                </button><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <input id="{{k_c}}" type="checkbox" name="check-{{k_c}}" value="{{v_c.data}}" hidden>
+                <h5 id="check-disp-{{k_c}}" class="text-{{v_c.color}}"></h5>
+                <br> {% else %}
+
+                <button type="button" class="btn font-weight-light btn-lg btn-{{v_c.color}}" onclick="check_box('{{k_c}}','{{v_c.data}}', '{{v_c.color}}')">{{v_c.data}}
+        </button><br><br>
+
+
+                <input id="{{k_c}}" type="checkbox" name="check-{{k_c}}" value="{{v_c.data}}" hidden>
+                <h5 id="check-disp-{{k_c}}" class="text-{{v_c.color}}"></h5>
+                <br> {% endif %} {% endfor %} {% elif k == 'file' %} {% if v != 'True' %}
+
+                <h6 class="font-weight-light">{{v}}</h6><br> {% endif %}
+
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="photo" accept="image/jpg, image/jpeg, image/png" id="customFile" required>
+                    <label class="custom-file-label font-weight-light" for="customFile">Choose file</label>
+                </div>
+
+                <script>
+                    // Add the following code if you want the name of the file appear on select
+                    $(".custom-file-input").on("change", function() {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                    });
+                </script>
+
+                <br><br> {% endif %}
+                <br>
+                <hr> {% endfor %}
+
+
+
+                <button class="btn font-weight-light  btn-lg btn-success" type="submit">Next</button>
+            </form>
+        </div>
+    </div>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+    <br><br>
+</body>
+
+</html>

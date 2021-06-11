@@ -1,0 +1,173 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+View Question
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+
+<script>
+    function copyToClipboard() {
+        var range = document.createRange();
+        range.selectNode(document.getElementById("q_id"));
+        window.getSelection().removeAllRanges(); // clear current selection
+        window.getSelection().addRange(range); // to select text
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();// to deselect
+    }
+</script>
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br><a class="btn btn-primary" href="/fire-admin/{{id}}/edit-form/{{form_id}}"><i class="fas fa-arrow-left"></i></a>  View Question </h1><br>
+<br>
+<h4>Question: <b class="font-weight-bold text-dark">{{question.question}}</b></h4><br>
+<h5 class="text-dark">ID: <b id="q_id">{{question_id}}</b> <button class="btn btn-secondary btn-sm" onclick="copyToClipboard()" >Copy</button></h5>
+<hr>
+<h5 class="text-info">Fire Code:</h5>
+{% if question.code %}
+<h4>{{question.code.source}}</h4>
+<h5 class="text-dark">{{question.code.title}}</h5><br>
+{% if question.code.data %}
+
+{% if question.code.data.type == "img" %}
+<img class="img-fluid" src="{{question.code.data.value}}">
+
+{% elif question.code.data.type == "text" %}
+<h6 class="text-dark">{{question.code.data.value}}</h6>
+{% endif %}
+
+{% endif %}
+<hr>
+{% if question.file.data != "none" %}
+    <h6 class="font-weight-bold text-dark">Attatched File: </h6>
+    {% if question.file.label != "none" %}
+        <a class="btn btn-lg btn-secondary" href="{{question.file.data}}" target="_blank">{{question.file.label}} <i class="fas fa-file-alt"></i></a>
+    {% else %}
+        <a class="btn btn-lg btn-secondary" href="{{question.file.data}}" target="_blank"><i class="fas fa-file-alt"></i></a>
+    {% endif %}
+    <hr>
+
+{% endif %}
+
+
+{% if question.img.data != "none" %}
+    <h6 class="font-weight-bold text-dark">Attatched Image:</h6>
+    {% if question.img.label != "none" %}
+        <h5 class="font-weight-bold text-primary">{{question.img.label}}</h5>
+    {% endif %}
+    <img class="img-fluid" src="{{question.img.data}}">
+    <br>
+    <hr>
+
+{% endif %}
+{% else %}
+<h5 class="font-weight-bold">No Fire Safety Code is attatched to this question</h5>
+{% endif %}
+<br>
+<h4 >Responses:</h4><br>
+{% for types in question.type %}
+    
+    {% if types == "mul" %}
+        <h5 class="text-primary font-weight-bold">Multiple Choice</h5>
+        <p class="text-dark">Responses:</p>
+        {% for resps in question.type[types] %}
+            {% for ans in question.type[types][resps] %}
+            
+            {% if resps == "ans" %}
+                <h5 class="text-{{question.type[types][resps][ans]['color']}}"><i class="fas fa-angle-double-right text-secondary"></i> {{question.type[types][resps][ans]['data']}}</h5>
+                {% if question.type[types]['pop'][ans] is mapping %}
+                    Popup Message: <b>{{question.type[types]['pop'][ans]['data']}}</b> 
+                    <br>Tag: 
+                    {% if question.type[types]['pop'][ans]['tag'] == "white" %}
+                    <b class="font-weight-bold text-dark">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% elif question.type[types]['pop'][ans]['tag'] == "yellow" %}
+                    <b class="font-weight-bold text-yellow">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% elif question.type[types]['pop'][ans]['tag'] == "red" %}
+                    <b class="font-weight-bold text-danger">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% else %}
+                    <b class="font-weight-bold text-dark">No Auto Tagging With This Popup</b>
+                    {% endif %}
+                    <br>
+                    
+                {% endif %}
+            {% endif %}
+            <br>
+            {% endfor %}
+            
+
+        {% endfor %}
+
+
+    {% elif types == "check" %}
+        <h5 class="text-dark font-weight-bold">Checkbox</h5>
+        <p class="text-dark">Responses:</p>
+
+        {% for resps in question.type[types] %}
+            {% for ans in question.type[types][resps] %}
+            
+            {% if resps == "ans" %}
+                <h5 class="text-{{question.type[types][resps][ans]['color']}}"><i class="fas fa-angle-double-right text-secondary"></i> {{question.type[types][resps][ans]['data']}}</h5>
+                {% if question.type[types]['pop'][ans] is mapping %}
+                    Popup Message: <b>{{question.type[types]['pop'][ans]['data']}}</b> 
+                    <br>Tag: 
+                    {% if question.type[types]['pop'][ans]['tag'] == "white" %}
+                    <b class="font-weight-bold text-dark">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% elif question.type[types]['pop'][ans]['tag'] == "yellow" %}
+                    <b class="font-weight-bold text-yellow">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% elif question.type[types]['pop'][ans]['tag'] == "red" %}
+                    <b class="font-weight-bold text-danger">{{question.type[types]['pop'][ans]['tag']}}</b>
+                    {% else %}
+                    <b class="font-weight-bold text-dark">No Auto Tagging With This Popup</b>
+                    {% endif %}
+                    <br>
+                    
+                {% endif %}
+            {% endif %}
+            <br>
+            {% endfor %}
+            
+
+        {% endfor %}
+    {% elif types == "text" %}
+        <h5 class="text-info font-weight-bold">Textbox</h5>
+        <h6><i class="fas fa-angle-double-right text-secondary"></i> Label: <b>
+        {% if  question.type[types] == "none"%}
+            N/A
+        {% else %}
+            {{question.type[types]}}
+        {% endif %}
+        </b></h6>
+    {% elif types == "file" %}
+        <h5 class="text-info font-weight-bold">Photo Upload</h5>
+        <h6><i class="fas fa-angle-double-right text-secondary"></i> Label: <b>
+        {% if  question.type[types] == "none"%}
+            N/A
+        {% else %}
+            {{question.type[types]}}
+        {% endif %}
+        </b></h6>
+    {% endif %}
+    </h4>
+    <br>
+
+
+{% endfor %}
+
+
+
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

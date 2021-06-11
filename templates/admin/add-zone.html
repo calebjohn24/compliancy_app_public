@@ -1,0 +1,87 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+    Add Jurisdiction
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+    <div class="text-center">
+            <br>
+            <h3>Select Jurisdiction</h3>
+            <hr>
+            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            <br>
+
+            <br>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Jurisdiction Id</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <form method="POST" action="/{{comp_name}}/admin-add-zone">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+                        {% for z in zones %}
+
+                        <tr>
+                            <td>
+                                <button class="btn btn-lg btn-secondary" value="{{z}}" name="zone" type="submit">
+                                    {{z}}
+                                </button>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                    </form>
+
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+{% block script %}
+
+
+    <script>
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

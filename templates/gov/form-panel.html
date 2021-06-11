@@ -1,0 +1,178 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Forms
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+<script type="text/javascript" src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}">
+</script>
+<link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+    type="text/css">
+
+<script type="text/javascript"
+    src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+</script>
+{% endblock %}
+
+
+{% block main %}
+<script>
+        $(document).ready(function () {
+            $('#form-table').DataTable({
+                "order": [[0, "desc"]]
+            });
+        });
+    </script>
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+    <br>Forms</h1>
+
+<button class="btn btn-success btn-lg font-weight-light" data-toggle="modal" data-target="#addformmodal">Add Form <i
+        class="fa fa-plus-square"></i></button>
+<div class="modal fade" id="addformmodal" tabindex="-1" role="dialog" aria-labelledby="addformmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="add-form" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                    <h5 class="font-weight-light">Enter Form Name<br> <input type="text"
+                            class="font-weight-light form-control border-dark" name="form-name" required></h5>
+                    <br>
+
+                    <h5 class="font-weight-light">Enter Form Description<br> <input type="text"
+                            class="font-weight-light form-control border-dark" name="form-descrip" required></h5>
+                    <br>
+                    <h5 class="font-weight-light">Select System Type<br> 
+                    <select name="system_type" id="brand-select" class="form-control border-dark text-dark" onchange="getval(this);" required>
+                            <option value="" selected disabled hidden>Choose...</option>
+                            
+                            {% for system in system_types %}
+
+                            <option value="{{system.id}}">{{system.id}} ({{system.descrip}})</option>
+                    
+                            {% endfor %}
+
+                    </select>
+                    </h5>
+                    <br>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-striped dataTable" id="form-table" role="grid"
+                        aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                        <thead>
+
+                            <tr>
+                                <th>ID <i class="fas fa-sort"></i></th>
+                                <th>Name <i class="fas fa-sort"></i></th>
+                                <th>System <i class="fas fa-sort"></i></th>
+                                <th>Edit</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for k_form, v_form in forms.items() %}
+                            <tr>
+                                <td>{{k_form}}
+                                </td>
+                                <td>{{v_form.name}}</td>
+                                <td>{{v_form.system_type}}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editType-{{k_form}}">
+                                  <i class="fa fa-edit"></i>
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="editType-{{k_form}}" tabindex="-1" role="dialog" aria-labelledby="editTypeTitle-{{k_form}}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Change System Type</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                            </div>
+                                            <form action="change-form-system-type" method="POST">
+                                            <div class="modal-body">
+                                                <h5 class="font-weight-light">Select System Type<br> 
+                                                <input type="hidden" name="form_id" value="{{k_form}}">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                                <select name="system_type" id="brand-select" class="form-control border-dark text-dark" onchange="getval(this);" required>
+                                                        <option value="" selected disabled hidden>Choose...</option>
+                                                        
+                                                        {% for system in system_types %}
+
+                                                        <option value="{{system.id}}">{{system.id}} ({{system.descrip}})</option>
+                                                
+                                                        {% endfor %}
+
+                                                </select>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Change</button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </td>
+                                <td><a class="btn btn-primary" href="edit-form/{{k_form}}"><i
+                                            class="fa fa-edit"></i></a>
+                                </td>
+                                <td>
+                                    <form action="rem-form" method="POST">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                        <button type="submit" class="btn btn-danger" name="rem" value="{{k_form}}"><i
+                                                class="fa fa-times-circle"></i></button>
+                                    </form>
+                                </td>
+
+
+                            </tr>
+                            {% endfor %}
+
+
+                            <br>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

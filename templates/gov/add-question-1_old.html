@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+    <link rel="manifest" href="../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Caleb John">
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+    <title>Sentinel Fire Watch</title>
+
+    <script>
+
+    </script>
+
+</head>
+
+<body>
+
+    <script>
+        function add_mul() {
+            document.getElementById("demo-mul").innerHTML = "<br>";
+            var x = parseInt(document.getElementById("myText-mul").value);
+            var val = ""
+            if (x >= 1) {
+                var val = '<input type="hidden" name="mul" value=' + (x) + '>'
+                for (i = 1; i < (x + 1); i++) {
+                    val += '<h4 class="font-weight-light">Enter Multiple Choice Response ' + (i) +
+                        ' </h4><input type="text" class="border-dark font-weight-light" name=mul-name-' + (
+                            i - 1) + ' required>' + '</h4><br><br><h4 class="font-weight-light">Select Color</h4><br>'
+                    val += '<h5 class="text-danger font-weight-light">Red <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="danger" required></h5><br>'
+                    val += '<h5 class="text-warning font-weight-light">Yellow <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="warning" required></h5><br>'
+                    val += '<h5 class="text-success font-weight-light">Green <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="success" required></h5><br>'
+                    val += '<h5 class="text-primary font-weight-light">Blue <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="primary" required></h5><br>'
+                    val += '<h5 class="font-weight-light">White <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="light" required></h5><br>'
+                    val += '<h5 class="text-secondary font-weight-light">Gray <input name=mul-color-' + (i - 1) +
+                        ' type="radio" value="secondary" required></h5><br><br>'
+                    val += '<h5 class="font-weight-light">Add Popup For Response ' + (i) +
+                        ' <small>(optional)</small> <input class="font-weight-light" name=mul-popup-' + (
+                            i - 1) + ' type="text"</h5><br><br>'
+                }
+                document.getElementById("demo-mul").innerHTML = val;
+            }
+        }
+
+        function add_check() {
+            document.getElementById("demo-check").innerHTML = "<br>";
+            var x = parseInt(document.getElementById("myText-check").value);
+            var val = ""
+            if (x >= 1) {
+                var val = ""
+                var val = '<input type="hidden" name="check" value=' + (x) + '>'
+                for (i = 1; i < (x + 1); i++) {
+                    val += '<h4 class="font-weight-light">Enter Checkbox Choice Response ' + (i) +
+                        ' </h4><input type="text" class="border-dark font-weight-light" name=check-name-' + (
+                            i - 1) + ' required>' + '</h4><br><br> <h4 class="font-weight-light">Select Color</h4><br>'
+                    val +=
+                        '<h5 class="text-danger font-weight-light">Red <input class="font-weight-light" name=check-color-' +
+                        (i - 1) +
+                        ' type="radio" value="danger" required></h5><br>'
+                    val += '<h5 class="text-warning font-weight-light">Yellow <input name=check-color-' + (i - 1) +
+                        ' type="radio" value="warning" class="font-weight-light border-dark" required></h5><br>'
+                    val += '<h5 class="text-success font-weight-light">Green <input name=check-color-' + (i - 1) +
+                        ' type="radio" value="success" required></h5><br>'
+                    val += '<h5 class="text-primary font-weight-light">Blue <input name=check-color-' + (i - 1) +
+                        ' type="radio" value="primary" required></h5><br>'
+                    val += '<h5 class="font-weight-light">White <input name=check-color-' + (i - 1) +
+                        ' type="radio" value="light" required></h5><br>'
+                    val += '<h5 class="text-secondary font-weight-light">Gray <input name=check-color-' + (i - 1) +
+                        ' type="radio" value="secondary" required></h5><br><br>'
+                    val += '<h5 class="font-weight-light" >Add Popup For Response ' + (i) +
+                        ' <small>(optional)</small> <input class="font-weight-light" name=check-popup-' +
+                        (i - 1) + ' type="text"</h5><br><br><br>'
+                }
+                document.getElementById("demo-check").innerHTML = val;
+            }
+        }
+    </script>
+    <div class="container-fluid text-center">
+        <br>
+        <h4 class="font-weight-light">Question Tool</h4>
+        <hr>
+        <br>
+        <h5 class="font-weight-light">Set Responses</h5>
+        <br>
+        <form action="add-question-resp" method="POST"><input type="hidden" name="csrf_token"
+                value="{{ csrf_token() }}" />
+            <div class="card">
+                <div class="card-header bg-dark text-light font-weight-light">
+                    Enter Number Multiple Choice of Responses
+                </div>
+
+                {% for k,v in rsp.items() %}
+                {% if v == 'mul' %}
+
+                <br><br>
+                <input type="number" id="myText-mul" min="2" class="w-50 mx-auto border-dark text-center" required>
+                <br>
+                <br>
+                <button class="btn-lg btn-info w-25 mx-auto" onclick="add_mul()">Next</button><br><br>
+                <div id="demo-mul"></div>
+
+            </div>
+            <br>
+
+            {% elif v == 'checkbox' %}
+            <div class="card">
+                <div class="card-header bg-dark text-light font-weight-light">
+                    Enter Number Checkbox Choice of Responses
+                </div>
+                <br>
+                <input type="number" class="w-50 mx-auto font-weight-light border-dark text-center" id="myText-check"
+                    min="2" required>
+                <br>
+                <br>
+                <button class="btn-lg btn-info font-weight-light w-25 mx-auto"
+                    onclick="add_check()">Next</button><br><br>
+                <div id="demo-check"></div>
+            </div>
+            <br>
+
+            {% elif v == 'text' %}
+            <br><br>
+            <div class="card">
+                <div class="card-header bg-dark text-light font-weight-light">
+                    Add Label for Text Box
+                </div>
+                <br>
+                <br>
+                <input class="text w-50 font-weight-light text-center mx-auto border-dark" type="text"
+                    name="text-label"><br><br><br>
+            </div>
+            <br>
+            {% elif v == 'file' %}
+            <br>
+            <br><br>
+            <div class="card">
+                <div class="card-header bg-dark text-light font-weight-light">
+                    Enter Label for Image Upload
+                </div>
+                <br>
+                <br>
+                <input class="text border-dark font-weight-light w-50 text-center mx-auto" type="text"
+                    name="file-label">
+                <br><br>
+            </div>
+            <br>
+            <br>
+
+            {% endif %}
+
+            {% endfor %}
+            <br>
+            <br>
+            <br><button type="submit" class="btn-lg font-weight-light btn-success">Next</button>
+
+            <br>
+
+        </form>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+
+
+
+
+
+    </div>
+</body>
+
+</html>

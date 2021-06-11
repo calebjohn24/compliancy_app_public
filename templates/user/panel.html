@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+    <link rel="manifest" href="../../static/manifest.json">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+    <meta name="author" content="Caleb John">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <title>Sentinel Fire Watch</title>
+</head>
+
+<body>
+<div class="container-fluid bg-dark">
+    <div class="text-center">
+        <br>
+
+        <nav class="navbar text-justify navbar-light bg-dark">
+            <a class="navbar-brand font-weight-light text-light">
+                <h5 class="font-weight-light text-light">{{ comp_name }}</h5>
+            </a>
+            <div class="form-inline">
+                <button class="btn btn-sm bg-transparent img-fluid" data-toggle="modal" data-target="#info-modal">
+                    <img src="{{ logo }}" height="45" class="d-inline-block align-top border-dark">
+                </button>
+
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="info-modal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!-- <h4 class="modal-title font-weight-light" id="exampleModalLongTitle">Info</h4> -->
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <h5 class="font-weight-light">Your Info:</h5><br>
+                            <h6 class="font-weight-light">Name: {{ user_dict.name }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Phone: {{ user_dict.phone }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">State Cert: {{ user_dict.state_cert }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">ICC: {{ user_dict.icc }}</h6>
+                            <br>
+                            <a class="btn btn-sm btn-primary" href="/{{ comp_id }}/edit-user-info">Edit <i
+                                    class="fas fa-edit"></i></a>
+                            <br>
+                            <hr>
+                            <br>
+
+                            <h5 class="font-weight-light">Company Info:</h5><br>
+                            <h6 class="font-weight-light">Name: {{ comp_name }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Id: {{ comp_id }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Address: {{ info.addr }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">LIC: {{ info.lic }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Address: {{ info.addr }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Company Phone: {{ info.phone }}</h6>
+                            <br>
+                            <h6 class="font-weight-light">Website: {{ info.website }}</h6>
+                            <br>
+                            <hr>
+                            <br>
+                            <h5 class="font-weight-light">Jurisdictions:</h5><br>
+                            {% for z in info['zones'] %}
+                                <h6 class="font-weight-light">{{ z }}</h6>
+                                <br>
+                            {% endfor %}
+
+                            <br>
+                            <hr>
+                            <br>
+                            <h5 class="font-weight-light">Certifications:</h5><br>
+                            {% for c in info['certs'] %}
+
+                                <h6 class="font-weight-light">{{ c }}</h6>
+                                <img class="img-fluid" src="{{ info['certs'][c]['img'] }}">
+                                <br>
+                                <br>
+
+                            {% endfor %}
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <br>
+        <br>
+
+
+        <div class="text-center">
+        <br><br><br>
+
+        <div class="row">
+
+        <div class="col">
+
+            <a class="btn btn-lg btn-success font-weight-light" href="system-register" role="button"><h6>Register System<br></h6>
+            <i class="fa-lg fas fa-fire-extinguisher"></i> <i class="fa-lg fas fa-plus"></i></a>
+        </div>
+
+        <div class="col">
+
+
+        <button class="btn btn-lg btn-success font-weight-light" data-toggle="modal" data-target="#system-search3"
+                role="button"><h6>Find System<br></h6>
+            <i class="fa-lg fas fa-fire-extinguisher"></i> <i class="fa-lg fas fa-search"></i></button>
+
+
+        <div class="modal fade" id="system-search3" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Enter Owner Email
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="find-system-code" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="modal-body">
+
+                        <br>
+
+
+                            <input type="email" name="system-email" placeholder="owner@email.com" title="Enter Email" required>
+
+                        <br>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success font-weight-light">Search
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+
+        <div class="row">
+
+        <div class="col">
+
+        <button class="btn btn-lg btn-primary font-weight-light" type="button" data-toggle="modal"
+                data-target="#system-search-start-report" role="button"><h6>New Report<br></h6>
+            <i class="fa-lg fas fa-clipboard-list"></i> <i class="fa-lg fas fa-plus"></i>
+        </button>
+        </div>
+
+
+        <div class="modal fade" id="system-search-start-report" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Enter System ID
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="sysSearchRep2" class="font-weight-light border-dark form-control"
+                               onkeyup="searchSystemRep2()" placeholder="Enter System ID" title="Type in a name">
+                        <br>
+                        <ul id="systemUL3" class="list-group">
+                            <form action="system-test" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                {% for h in systems %}
+
+                                    <button name="code" type="submit" value="{{ h }}"
+                                            class="list-group-item font-weight-light list-group-item-action w-100">
+                                        <a>{{ h }}</a>
+                                    </button>
+
+                                {% endfor %}
+                            </form>
+                        </ul>
+                        <br>
+
+                        <script>
+                            function searchSystemRep2() {
+                                var input, filter, ul, li, a, i, txtValue;
+                                input = document.getElementById("sysSearchRep2");
+                                filter = input.value.toUpperCase();
+                                ul = document.getElementById("systemUL3");
+                                li = ul.getElementsByTagName("button");
+                                for (i = 0; i < li.length; i++) {
+                                    a = li[i].getElementsByTagName("a")[0];
+                                    txtValue = a.textContent || a.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        li[i].style.display = "";
+                                    } else {
+                                        li[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary font-weight-light"
+                                data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+
+        <button class="btn btn-lg btn-primary font-weight-light" type="button" data-toggle="modal"
+                data-target="#amend-modal" role="button"><h6>Amend Report<br></h6>
+            <i class="fa-lg fas fa-clipboard-list"></i> <i class="fa-lg fas fa-edit"></i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="amend-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-light">Amend Report</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="text" id="sysSearchAm" class="font-weight-light border-dark form-control"
+                               onkeyup="searchSystemAmend()" placeholder="Enter Amend Code Or System ID"
+                               title="Type in a name">
+                        <br>
+                        <ul id="systemUL4" class="list-group">
+                            <form action="system-report-amend" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                {% for a in amend %}
+
+                                    <button name="code" type="submit" value="{{ a }}"
+                                            class="list-group-item font-weight-light list-group-item-action w-100">
+                                        <a>{{ a }} <br>
+                                            <small class="font-weight-light">System #{{ amend[a]['system'] }} @
+                                                {{ amend[a]['time_stamp'] }}</small>
+                                        </a>
+                                    </button>
+
+                                {% endfor %}
+                            </form>
+                        </ul>
+                        <br>
+
+                        <script>
+                            function searchSystemAmend() {
+                                var input, filter, ul, li, a, i, txtValue;
+                                input = document.getElementById("sysSearchAm");
+                                filter = input.value.toUpperCase();
+                                ul = document.getElementById("systemUL4");
+                                li = ul.getElementsByTagName("button");
+                                for (i = 0; i < li.length; i++) {
+                                    a = li[i].getElementsByTagName("a")[0];
+                                    txtValue = a.textContent || a.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        li[i].style.display = "";
+                                    } else {
+                                        li[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        </script>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary font-weight-light"
+                                data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+        <button class="btn btn-lg btn-primary font-weight-light" data-toggle="modal" data-target="#system-search2"
+                role="button"><h6>View Reports<br></h6>
+            <i class="fa-lg fas fa-clipboard-check"></i></button>
+
+
+        <div class="modal fade" id="system-search2" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Enter System ID
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="sysSearchRep" class="font-weight-light border-dark form-control"
+                               onkeyup="searchSystemRep()" placeholder="Enter System ID" title="Type in a name">
+                        <br>
+                        <ul id="systemUL2" class="list-group">
+                            <form action="user-system-report" method="POST">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                {% for h in systems %}
+
+                                    <button name="code" type="submit" value="{{ h }}"
+                                            class="list-group-item font-weight-light list-group-item-action w-100">
+                                        <a>{{ h }}</a>
+                                    </button>
+
+                                {% endfor %}
+                            </form>
+                        </ul>
+                        <br>
+
+                        <script>
+                            function searchSystemRep() {
+                                var input, filter, ul, li, a, i, txtValue;
+                                input = document.getElementById("sysSearchRep");
+                                filter = input.value.toUpperCase();
+                                ul = document.getElementById("systemUL2");
+                                li = ul.getElementsByTagName("button");
+                                for (i = 0; i < li.length; i++) {
+                                    a = li[i].getElementsByTagName("a")[0];
+                                    txtValue = a.textContent || a.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        li[i].style.display = "";
+                                    } else {
+                                        li[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        </script>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary font-weight-light"
+                                data-dismiss="modal">Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        </div>
+    </div>
+
+</body>
+
+</html>

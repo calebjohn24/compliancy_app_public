@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="60x60" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../../static/img/Logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../static/img/Logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../static/img/Logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../static/img/Logo.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../../static/img/Logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../static/img/Logo.png">
+  <script src="https://kit.fontawesome.com/80bbe0004b.js" crossorigin="anonymous"></script>
+  <link rel="manifest" href="../../static/manifest.json">
+  <meta name="msapplication-TileColor" content="#000000">
+  <meta name="msapplication-TileImage" content="../../static/img/Logo.png">
+  <meta name="theme-color" content="#000000">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Caleb John">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/b-print-1.6.1/kt-2.5.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+  <title>Sentinel Fire Watch</title>
+  <style>
+    .StripeElement {
+      box-sizing: border-box;
+
+      height: 40px;
+
+      padding: 10px 12px;
+
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background-color: white;
+
+      box-shadow: 0 1px 3px 0 #e6ebf1;
+      -webkit-transition: box-shadow 150ms ease;
+      transition: box-shadow 150ms ease;
+    }
+
+    .StripeElement--focus {
+      box-shadow: 0 1px 3px 0 #cfd7df;
+    }
+
+    .StripeElement--invalid {
+      border-color: #fa755a;
+    }
+
+    .StripeElement--webkit-autofill {
+      background-color: #fefde5 !important;
+    }
+  </style>
+  <script>
+    var clickVal = '#{{click}}';
+    // var clickVal = '#reports-tab';
+    if (clickVal != "None") {
+      jQuery(function () {
+        jQuery(clickVal).click();
+      });
+    }
+  </script>
+  <script>
+    var randomColorGenerator = function () {
+      return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+    };
+  </script>
+</head>
+
+<body>
+  <script type="text/javascript" class="init">
+    $(document).ready(function () {
+      // $('table.display').DataTable();
+      $('#system-table').DataTable();
+      $('#log-table').DataTable();
+      $('#user-table').DataTable();
+      $('#admin-table').DataTable();
+    });
+  </script>
+
+
+  <!-- <div class="container"> -->
+
+
+  <div class="container-fluid text-center">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark text-left">
+
+      <ul class="nav navbar-nav mr-auto nav-pills-dark" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active text-light font-weight-light" id="home-tab" data-toggle="tab" href="#home"
+            role="tab" aria-controls="home" aria-selected="true">Reports</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="systems-tab" data-toggle="tab" href="#systems" role="tab"
+            aria-controls="systems" aria-selected="false">Systems</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="users-tab" data-toggle="tab" href="#users" role="tab"
+            aria-controls="users" aria-selected="false">Personnel</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+            aria-controls="profile" aria-selected="false">Company Profile</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="billing-tab" data-toggle="tab" href="#billing" role="tab"
+            aria-controls="billing" aria-selected="false">Billing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="insights-tab" data-toggle="tab" href="#insights"
+            role="tab" aria-controls="billing" aria-selected="false">Insights</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light font-weight-light" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+            aria-controls="contact" aria-selected="false">Contact Support</a>
+        </li>
+
+
+      </ul>
+
+
+      <a class="navbar-brand text-light font-weight-light" href="/{{id}}/admin-panel">{{comp_name}}
+
+        <img src="{{logo}}" height="40" class="d-inline-block align-top" alt="">
+
+      </a>
+    </nav>
+
+    <div class="tab-content" id="myTabContent">
+
+      <div class="tab-pane fade" id="insights" role="tabpanel" aria-labelledby="insights-tab">
+        <br>
+        <h3 class="font-weight-light">This Cycle: {{logs[log_key]['start_date']}} to {{logs[log_key]['end_date']}}</h3>
+        <br>
+
+        {% if logs[log_key]['tags']['red'] == 0 and logs[log_key]['tags']['yellow'] == 0 and logs[log_key]['tags']['white'] == 0%}
+
+        <h4 class="font-weight-light">No Reports Have Been Filed This Cycle</h4><br>
+
+        {% else %}
+
+        <canvas id="tag-chart" class="mx-auto"></canvas>
+        <script>
+          var tag_ctx = document.getElementById('tag-chart').getContext('2d');
+
+          new Chart(tag_ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ["Red", "Yellow", "White"],
+              datasets: [
+                {
+                  label: "# of Reports",
+                  backgroundColor: ["#ff0022", "#fff200", "#cfcfcf"],
+                  data: [{{ logs[log_key]['tags']['red'] }}, {{ logs[log_key]['tags']['yellow'] }}, {{ logs[log_key]['tags']['white'] }}]
+                }
+              ]
+            },
+            options: {
+            title: {
+              display: true,
+              text: 'Report Tag Breakdown'
+            }
+          }
+          });
+        </script>
+        <br>
+        <br>
+        <br>
+
+        {% endif %}
+        <div class="row">
+
+          <div class="col">
+
+            <canvas id="system-chart"></canvas>
+            <script>
+              var randomColorGenerator = function () {
+                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+              };
+
+              new Chart(document.getElementById("system-chart"), {
+                type: 'bar',
+                data: {
+                  labels: [
+                    {% for usr in logs[log_key]['users'] %}
+
+            "{{ logs[log_key]['users'][usr]['name'] }}",
+
+                {% endfor %}
+                  ],
+                datasets: [
+                {
+                  label: "Systems Registered",
+                  backgroundColor: [
+                    {% for usr in logs[log_key]['users'] %}
+
+            randomColorGenerator(),
+
+                {% endfor %}
+
+              ],
+                data: [
+                {% for usr in logs[log_key]['users'] %}
+
+              {{ logs[log_key]['users'][usr]['systems'] }},
+
+                {% endfor %}
+                      ]
+                    }
+                  ]
+                },
+              options: {
+                legend: { display: false },
+                scales : {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                      callback: function (value) { if (value % 1 === 0) { return value; } }
+                    }
+
+                  }]
+                },
+                title: {
+                  display: true,
+                    text: 'Systems Registered'
+                }
+              }
+              });
+            </script>
+
+
+
+          </div>
+
+          <div class="col">
+
+          
+            <canvas id="report-chart"></canvas>
+            <script>
+              var randomColorGenerator = function () {
+                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+              };
+
+              new Chart(document.getElementById("report-chart"), {
+                type: 'bar',
+                data: {
+                  labels: [
+                    {% for usr in logs[log_key]['users'] %}
+          
+                      "{{ logs[log_key]['users'][usr]['name'] }}",
+          
+                          {% endfor %}
+                            ],
+                datasets: [
+                {
+                  label: "Reports Filed",
+                  backgroundColor: [
+                    {% for usr in logs[log_key]['users'] %}
+          
+                      randomColorGenerator(),
+
+                {% endfor %}
+
+              ],
+                data: [
+                {% for usr in logs[log_key]['users'] %}
+
+              {{ logs[log_key]['users'][usr]['reports'] }},
+
+              {% endfor %}
+                                ]
+                              }
+                            ]
+                          },
+              options: {
+                legend: { display: false },
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                      callback: function (value) { if (value % 1 === 0) { return value; } }
+                    }
+
+                  }]
+                },
+                title: {
+                  display: true,
+                    text: 'Reports Filed'
+                }
+              }
+                        });
+            </script>
+          
+          
+          
+          </div>
+
+
+        </div>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <h3 class="font-weight-light">Monthly Trends</h3>
+        <br>
+        <hr>
+        <br>
+
+        <div class="row">
+
+          <div class="col">
+            <canvas id="report-month-chart"></canvas>
+            
+            <script>
+              var x = new Chart(document.getElementById("report-month-chart"), {
+                  type: 'line',
+                  data: {
+                  labels: [
+                  {% for keys in logs %}
+                  "{{logs[keys]['end_date']}}",
+                  {% endfor %}
+                  ],
+                  datasets: [{
+                    label: 'Reports Filed',
+                    data: [
+                    {% for keys in logs %}
+                  {{logs[keys]['reports']}},
+                    {% endfor %}
+                    ],
+                    backgroundColor: "rgba(51,71,255,0.4)"
+                  }]
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          beginAtZero: true,
+                          callback: function (value) { if (value % 1 === 0) { return value; } }
+                        }
+
+                      }]
+                    },
+                    title: {
+                      display: true,
+                        text: 'Reports Filed'
+                    }
+                  }
+                });
+            </script>
+
+
+          </div>
+
+
+
+          <div class="col">
+            <canvas id="system-month-chart"></canvas>
+            
+            <script>
+              var x = new Chart(document.getElementById("system-month-chart"), {
+                type: 'line',
+                data: {
+                  labels: [
+                    {% for keys in logs %}
+                              "{{logs[keys]['end_date']}}",
+                              {% endfor %}
+                              ],
+              datasets: [{
+                label: 'Systems Registered',
+                data: [
+                  {% for keys in logs %}
+                              {{ logs[keys]['systems'] }},
+              {% endfor %}
+              ],
+                backgroundColor: "rgb(24,220,149)"
+                              }]
+                            },
+              options: {
+                legend: { display: false },
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true,
+                      callback: function (value) { if (value % 1 === 0) { return value; } }
+                    }
+
+                  }]
+                },
+                title: {
+                  display: true,
+                    text: 'Systems Registered'
+                }
+              }
+                            });
+            </script>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+      </div>
+
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <br>
+        <form method="POST" action="/contact-support">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="alert alert-success" role="alert">
+            <h6 class="text-dark font-weight-light">Green <small class="font-weight-light">(General Question)</small>
+              <input class="radio" type="radio" name="severity" value="green" required></h6>
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            <h6 class="text-dark font-weight-light">Yellow <small class="font-weight-light">(Urgent Question)</small>
+              <input class="radio" type="radio" name="severity" value="yellow" required></h6>
+          </div>
+
+          <div class="alert alert-danger" role="alert">
+            <h6 class="text-dark font-weight-light">Red <small class="font-weight-light">(Immediate Action Needed,
+                Service Compromised)</small>
+              <input class="radio" type="radio" name="severity" value="red" required></h6>
+          </div>
+          <br>
+          <p class="font-weight-light border-dark">Tell us about your question/problem</p>
+          <input type="hidden" name="type" value="comp">
+          <input type="hidden" name="name" value="{{id}}">
+          <input type="hidden" name="user" value="{{user_email}}">
+          <textarea class="border-dark font-weight-light" name="issue" rows="15" cols="50" required></textarea>
+          <br><br>
+          <button class="btn btn-lg btn-secondary font-weight-light" type="submit" value="Send">Send <i
+              class="fas fa-paper-plane"></i></button>
+
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="billing" role="tabpanel" aria-labelledby="billing-tab"><br>
+        <h3 class="font-weight-light">Billing Info & Monthly Usage</h3>
+        <br>
+        <div class="row">
+
+          <div class="col">
+
+            <div class="card">
+              <div class="card-header bg-dark text-light font-weight-light">
+                Monthly Usage <i class="far fa-chart-bar fa-lg"></i>
+              </div>
+              <div class="card-body">
+
+
+
+                <h5 class="font-weight-light"><i class="fas fa-clipboard-list"></i> {{report_count}} reports filed</h5>
+
+                <div class="text-right">
+                  <br>
+                  <hr>
+                  <h5 class="font-weight-light">{{report_count}} Reports x
+                    {{"$%.2f"|format(report_price)}}</h5>
+                  <br>
+
+                  <hr>
+
+                  <h5 class="font-weight-light">Subtotal
+                    {{"$%.2f"|format(report_price * report_count)}}</h5>
+
+
+
+                  <p class="font-weight-light">Wa Sales Tax
+                    {{"$%.2f"|format(0.1* (report_price * report_count))}}</p>
+
+                  <h5 class="font-weight-light">Monthly Bill
+                    {{"$%.2f"|format(1.1* (report_price * report_count))}}</h5>
+                  <hr>
+                  <br>
+                </div>
+                <h5 class="font-weight-light"><i class="fas fa-calendar-alt fa-lg"></i> Billing Cycle: {{start_date}} -
+                  {{end_date}}</h5>
+                <br>
+                <br>
+                <small class="font-weight-light text-uppercase ">Note: You Are Automatically Billed For Filed Reports When They Are Filed</small>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="col">
+
+            <div class="card">
+              <div class="card-header font-weight-light bg-dark text-light">
+                Payment Info
+              </div>
+              <div class="card-body">
+
+                {% if card_brand == 'Visa' %}
+
+                <h5 class="font-weight-light">Current Card: <i class="fab fa-cc-visa fa-5x"></i> ending in
+                  {{last_4}}</h5>
+
+                {% elif card_brand == 'American express' %}
+
+                <h5 class="font-weight-light"><i class="fab fa-cc-amex fa-5x"></i> ending in
+                  {{last_4}}</h5>
+
+                {% elif card_brand == 'Mastercard' %}
+
+                <h5 class="font-weight-light"><i class="fab fa-cc-mastercard fa-5x"></i> ending in
+                  {{last_4}}</h5>
+
+
+                {% elif card_brand == 'Discover' %}
+
+                <h5 class="font-weight-light"><i class="fab fa-cc-discover fa-5x"></i> ending in
+                  {{last_4}}</h5>
+
+
+                {% else %}
+
+                <h5 class="font-weight-light">{{card_brand}} ending in {{last_4}}</h5>
+
+                {% endif %}
+
+
+
+
+                <br>
+                <hr>
+                <br>
+
+
+                <h5 class="font-weight-light">Change Payment Method <i class="fas fa-money-check"></i></h5>
+                <br>
+                <script src="https://js.stripe.com/v3/"></script>
+                <form action="update-card" method="post" id="payment-form">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                  <div class="form-row">
+                    <div class="w-100" id="card-element">
+                      <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div class="w-100" id="card-errors" role="alert"></div>
+                  </div>
+                  <br>
+                  <button class="btn btn-lg btn-secondary font-weight-light">Change Card</button>
+                </form>
+
+                <br>
+                <br>
+                <br>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+
+        <br><br><br><br><br><br><br><br><br><br><br>
+
+
+      </div>
+
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <br>
+        <h3 class="font-weight-light">Reports <i class="fas fa-clipboard-list text-secondary"></i></h3>
+        <br>
+
+
+
+        <div class="card text-left">
+          <h5 class="card-header bg-dark"></h5>
+        </div>
+        <br>
+
+
+
+        <table id="log-table" class="display table-striped table-bordered text-left" style="width:100%">
+          <thead>
+            <tr>
+              <th class="font-weight-bold text-sm-left">System ID <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Date <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Technician <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Type <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Tag <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">View</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for  k, v in reports.items() %}
+            {% if v.complete == 0 %}
+            <tr>
+              <td class="font-weight-light">{{v.system}}
+              </td>
+              <td class="font-weight-light">{{v.time_stamp[:10]}}</td>
+              <td class="font-weight-light">{{v.author}}</td>
+              <td class="font-weight-light">{{v.type}}</td>
+              <td class="font-weight-light">{{v.tag}}</td>
+              <td class="font-weight-light"><a class="btn btn-success"
+                  href="/{{id}}/view-report/{{k}}/{{v.token}}/admin"><i class="fas fa-eye"></i></a></td>
+
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="tab-pane fade" id="systems" role="tabpanel" aria-labelledby="systems-tab">
+        <br>
+        <h3 class="font-weight-light">Systems Registered
+          <i class="fas fa-fire-extinguisher fa-lg text-danger"></i></h3>
+        <br>
+
+        <div class="card text-left">
+          <h5 class="card-header bg-dark"></h5>
+        </div>
+        <br>
+
+        <table id="system-table" class="display table-striped table-bordered text-left" style="width:100%">
+          <thead>
+            <tr>
+              <th class="font-weight-bold">ID <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold">Jurisdiction <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold">Owner <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold">Date <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold">Brand <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold">Tag <i class="fas fa-sort"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for k1,v1 in system_info.items() %}
+            <tr>
+              <td class="font-weight-light"><a class="btn btn-primary" href="view-system/{{k1}}"><i
+                    class="fas fa-info"></i></a> {{k1}}
+              </td>
+              <td class="font-weight-light">{{v1.zone}}
+              </td>
+              <td class="font-weight-light">{{v1.name}}
+              </td>
+              <td class="font-weight-light">{{v1.time_stamp[:10]}}
+              </td>
+              <td class="font-weight-light">{{v1.brand}}
+              </td>
+              <td class="font-weight-light">{{v1.tag}}
+              </td>
+
+            </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+
+
+      </div>
+
+
+
+      <!--  -->
+      <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+        <br>
+        <div class="row">
+
+          <div class="col">
+
+            <div class="card">
+              <h3 class="font-weight-light text-light card-header bg-dark">Technicians <i
+                  class="fas fa-user fa-lg text-primary"></i></h3>
+              <div class="card-body"></div>
+
+
+              <button type="button" class="btn-lg btn-success font-weight-light" data-toggle="modal"
+                data-target="#exampleModalLong-add-user">
+                Add Technician <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong-add-user" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Technician</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="add-user" method="post"><input type="hidden" name="csrf_token"
+                      value="{{ csrf_token() }}" />
+                    <div class="modal-body bg-dark">
+                      <h4 class="font-weight-light text-light">User Email <small class="font-weight-light">(We'll Send
+                          Them An
+                          Email
+                          To
+                          Setup Their
+                          Account)</small>
+                        <br></h4>
+                      <input type="email" class="form-control font-weight-light" name="email" required>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="font-weight-light btn btn-primary">Add</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+
+            <div class="text-left">
+
+              <table id="user-table" class="display table-striped table-bordered" style="width:100%">
+                <thead>
+                  <br>
+                  <tr>
+                    <th class="font-weight-bold">Name <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Email <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Remove </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for k_u, v_u in users.items()  %}
+
+                  {% if v_u.type == 'tech' %}
+
+                  <tr>
+                    <td class="font-weight-light"><a class="btn btn-sm btn-primary" href="/{{id}}/user-view/{{k_u}}"><i
+                          class="fas fa-info"></i></a> {{v_u.name}}
+                    </td>
+                    <td class="font-weight-light">{{v_u.email}}
+                    </td>
+                    <td class="font-weight-light"><a href="rem_users~{{k_u}}" class="btn-danger btn-sm"><i
+                          class="fas fa-times-circle"></i></a></td>
+
+                  </tr>
+                  {% endif %}
+
+                  {% endfor %}
+
+
+                  <br>
+                </tbody>
+              </table>
+            </div>
+
+            <br>
+
+          </div>
+
+          <di class="col">
+
+            <div class="card">
+              <h3 class="font-weight-light  text-light card-header  bg-dark">Administrators <i
+                  class="fas fa-user-shield fa-lg text-warning"></i></h3>
+              <div class="card-body"></div>
+
+
+
+
+
+              <button type="button" class="btn-lg btn-success font-weight-light" data-toggle="modal"
+                data-target="#exampleModalLong-add-admin">
+                Add Administrator <i class="fas fa-plus"></i>
+              </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong-add-admin" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Admin Acct.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="add-admin" method="POST"><input type="hidden" name="csrf_token"
+                      value="{{ csrf_token() }}" />
+                    <div class="modal-body bg-dark">
+                      <h4 class="font-weight-light text-light">Admin Email <small class="font-weight-light">(We'll Send
+                          Them An
+                          Email
+                          To
+                          Setup Their
+                          Account)</small>
+                        <br></h4>
+                      <input type="email" name="email" class="form-control font-weight-light" required>
+                      <br>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="submit" value="Add" class="btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="text-left">
+
+              <table id="admin-table" class="display table-striped table-bordered" style="width:100%">
+                <thead>
+                  <br>
+                  <tr>
+                    <th class="font-weight-bold">Name <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Email <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Phone <i class="fas fa-sort"></i></th>
+                    <th class="font-weight-bold">Remove </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for k_a, v_a in admin_users.items() %}
+
+                  {% if v_a.type == 'admin' %}
+                  <tr>
+                    <td class="font-weight-light">{{v_a.name}}
+                    </td>
+                    <td class="font-weight-light">{{v_a.email}}
+                    </td>
+                    <td class="font-weight-light">{{v_a.phone}}
+                    </td>
+                    <td class="font-weight-light"><a href="rem_users~{{k_a}}" class="btn-danger btn-sm"><i
+                          class="fas fa-times-circle"></i></a></td>
+
+                  </tr>
+                  {% endif %}
+
+                  {% endfor %}
+
+
+                  <br>
+                </tbody>
+              </table>
+            </div>
+            <br>
+
+
+
+          </di>
+        </div>
+      </div>
+      <!--  -->
+
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+        <br>
+        <h3 class="font-weight-light">Your Info</h3>
+        <br>
+
+        <!-- Name -->
+
+        <div class="row text-center">
+
+          <div class="col">
+
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Name</h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">{{name}}</h5> <br>
+
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Password <i class="fas fa-lock"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light"><i class="fas fa-key fa-lg"></i></h5><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-pw">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Phone <i class="fas fa-phone"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">{{phone_user}}</h5> <br>
+
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModalCenter-phone">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~name" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light text-light">Enter New Name:</p>
+                  <input type="text" class="font-weight-light border-dark form-control" name="name" value="{{name}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+
+        <div class="modal fade" id="exampleModalCenter-phone" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Change Phone Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~number" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <small class="font-weight-light">Note: Without a Valid Phone Number We Cannot Recover Your
+                    Account</small>
+                  <p class="font-weight-light text-light">Enter New Number:</p>
+                  <input type="tel" name="number" class="font-weight-light border-dark form-control"
+                    value="{{phone_user}}" required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Change Number" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-pw" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~pw" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light text-light">Enter New Password:</p>
+                  <input type="text" class="font-weight-light border-dark form-control" name="pw" value="" required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Change Password" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <h3 class="font-weight-light">Company Info</h3><br><br>
+
+        <div class="row">
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Company ID <i
+                  class="fas fa-id-card fa-lg"></i></h5>
+              <div class="card-body">
+                <h4 class="card-title font-weight-light"><br>{{id}}</h4>
+                <br>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Display Name <i
+                  class="fas fa-file-signature"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">
+                  {{comp_name}}</h5> <br>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModalCenter-dispname">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Union Info <i class="fas fa-users fa-lg"></i>
+              </h5>
+              <div class="card-body">
+                {% if union == 'True' %}
+                <h5 class="card-title font-weight-light"></i>
+                  {{comp_name}} Is A Union Company </h5>
+                <br>
+
+                <button type="button" class="btn btn-primary font-weight-light" data-toggle="modal"
+                  data-target="#exampleModal">
+
+                  Change <i class="fas fa-edit"></i>
+
+
+                </button>
+
+                {% else %}
+                <h5 class="card-title font-weight-light"><i class="fas fa-file-signature text-danger"></i>
+                  {{comp_name}} Is Not A Union Company</h5><br>
+
+                <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal"
+                  data-target="#exampleModal">
+
+                  Change <i class="fas fa-edit"></i>
+
+
+                </button>
+
+
+
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="modal fade" id="exampleModalCenter-dispname" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Display Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="edit-dispname" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="text-light font-weight-light">Enter New Display Name</p>
+                  <input type="text" name="name" class="font-weight-light border-dark form-control"
+                    value="{{comp_name}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLabel">Union Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form method="POST" action="change-union">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light">Note: Reporting Incorrect Information May Lead To Your Company Being
+                    Disbarred</p>
+                  <br>
+                  <hr>
+                  <h5 class="font-weight-light">Change Union Status</h5><br>
+                  <button type="submit" name="union" value="yes"
+                    class="btn btn-lg btn-primary font-weight-light">Union</button>
+                  <br><br>
+                  <button type="submit" name="union" value="no"
+                    class="btn btn-lg btn-secondary font-weight-light">Non-Union</button>
+                  <br>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Certifications <i
+                  class="fas fa-certificate"></i></h5>
+              <div class="card-body text-right">
+                {% for c in certs %}
+
+                <h5 class="font-weight-light">{{c}} <button type="button" class="btn btn-success font-weight-light"
+                    data-toggle="modal" data-target="#exampleModalCenter-{{c}}-cert"> Update Cert
+                    <i class="fas fa-arrow-up fa-lg"></i></button></h5>
+
+                <div class="modal fade" id="exampleModalCenter-{{c}}-cert" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Update Certification</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="update-cert" id="{{c}}-update" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body text-left">
+                          <small class="font-weight-light text-uppercase">Note: Uploading False or Misleading Documents
+                            Will Lead To Your Company Being Disbarred and Potential Legal Action</small>
+                          <hr>
+                          <a class="btn btn-secondary" target="_blank" href="{{certs[c]['img']}}">Current Certificate
+                            <i class="fas fa-certificate"></i></a>
+
+                          <hr>
+
+                          <h5 class="font-weight-light">Update {{c}} Certification</h5>
+                          <br>
+
+                          <p class="font-weight-light">Upload Photo of Certificate</p>
+
+
+                          <input type="file" class="form-control-file" name="cert"
+                            accept="image/jpg, image/jpeg, image/png" required>
+                          <input type="hidden" name="brand" value="{{c}}">
+                          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" form="{{c}}-update" class="btn btn-primary">Update</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+
+                {% endfor %}
+                <br>
+                <hr>
+                <br>
+                <button type="button" class="btn btn-success font-weight-light" data-toggle="modal"
+                  data-target="#add-cert-modal">Add
+                  Certification <i class="fas fa-certificate"></i> <i class="fas fa-plus"></i></button>
+
+                <div class="modal fade" id="add-cert-modal" tabindex="-1" role="dialog" aria-labelledby="add-cert-modal"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Add Certificate</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="add-cert" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <div class="modal-body text-left">
+                          <small class="font-weight-light text-uppercase">Note: Uploading False or Misleading Documents
+                            Will Lead To Your Company Being Disbarred and Potential Legal Action</small>
+                          <hr>
+                          <select name="brand" required>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Amerex">Amerex</option>
+                            <option value="Ansul">Ansul</option>
+                            <option value="Kiddie">Kiddie</option>
+                            <option value="Protex">Protex</option>
+                            <option value="Pyro-Chem">Pyro-Chem</option>
+                            <option value="Piranha">Piranha</option>
+                            <option value="Badger">Badger</option>
+                            <option value="Range-Guard">Range-Guard</option>
+                            <option value="Buckeye">Buckeye</option>
+
+                          </select>
+                          <br>
+                          <hr>
+                          <br>
+                          <p class="font-weight-light">Upload Photo of Certificate</p>
+
+                          <input type="file" class="form-control-file" name="cert"
+                            accept="image/jpg, image/jpeg, image/png" required>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Add Certificate</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Jurisdictions <i
+                  class="fas fa-map-marker-alt"></i></h5>
+              <div class="card-body text-center">
+                {% for kj, vj in zones.items() %}
+
+                {% if vj['date'] == 'pending' %}
+                <h4 class="font-weight-light text-warning">{{kj}} <small class="font-weight-light">(Pending)</small>
+                </h4>
+                <br>
+                <hr>
+                <br>
+
+                {% else %}
+                <h4 class="font-weight-light">{{kj}} </h4>
+                <br>
+                <hr>
+                <br>
+
+                {% endif %}
+
+                {% endfor %}
+                <br>
+                <br>
+                <hr>
+                <a class="btn btn-success font-weight-light text-center" href="req-zone">Add
+                  Jurisdiction <i class="fas fa-map-marker-alt"></i> <i class="fas fa-plus"></i>
+                </a>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Contact Info <i
+                  class="fas fa-address-book"></i></h5>
+              <div class="card-body text-right">
+
+                <h6 class="font-weight-light">Address: {{addr}}
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-addr">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <h6 class="font-weight-light">Phone Number: {{phone}}
+                  <button type="button" class="btn btn-info" data-toggle="modal"
+                    data-target="#exampleModalCenter-number">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <!-- Name -->
+                <h6 class="font-weight-light">Company LIC: {{lic}}
+                  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-lic">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+                <h6 class="font-weight-light">Company Website: {{website}}
+                  <button type="button" class="btn btn-info" data-toggle="modal"
+                    data-target="#exampleModalCenter-website">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </h6>
+                <br>
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-3">
+
+            <div class="card">
+              <h5 class="card-header font-weight-light bg-dark text-light">Logo</h5>
+              <div class="card-body">
+
+                <img src={{logo}} class="img-fluid">
+                <br>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter-logo">
+                  <i class="fas fa-edit"></i>
+                </button>
+
+
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+
+
+        <br><br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-addr" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form action="admin-update~addr" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light">Street Address</p>
+                  <input type="text" name="addr" class="font-weight-light border-dark form-control">
+                  <br>
+                  <p class="font-weight-light">City</p>
+                  <input type="text" name="city" class="font-weight-light border-dark form-control">
+                  <br>
+                  <p class="font-weight-light">State</p>
+                  <select class="form-control font-weight-light border-dark">
+                    <option value="" selected hidden>Select State...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                  <br>
+                  <p class="font-weight-light">Zip</p>
+                  <input type="number" name="zip" class="font-weight-light border-dark form-control">
+
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-number" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Phone Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form action="admin-update~phone" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="phone" class="font-weight-light border-dark form-control" value="{{phone}}"
+                    required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-lic" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company LIC</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-update~lic" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="lic" class="font-weight-light border-dark form-control" value="{{lic}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-website" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Website</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-update~website" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <input type="text" name="website" class="font-weight-light border-dark form-control"
+                    value="{{website}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success font-weight-light">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+        <div class="modal fade" id="exampleModalCenter-logo" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Company Logo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="update-logo" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                  <input type="file" class="form-control-file" name="logo" accept="image/jpg, image/jpeg, image/png"
+                    required>
+                </div>
+                <div class="modal-footer">
+                  <input type="submit" value="Save changes" class="btn btn-success">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br><br>
+    </div>
+    <!--  -->
+  </div>
+  <br>
+  <br>
+  </div>
+
+  <!-- </div> -->
+  <script>
+    var stripe = Stripe('pk_test_AaYl7GVGtjGAayU9XYcNv8NN00CFTpfUSx');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {
+      style: style
+    });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function (event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function (result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripe_token');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    }
+  </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>View Company</h1>
+
+
+        <div class="text-left">
+            <br>
+            <a class="btn btn-danger btn-lg font-weight-light" href="/fire-admin/{{zone}}/companies"><i
+                    class="fas fa-arrow-left"></i></a>
+        </div>
+        <div class="text-center">
+            <h3 class="font-weight-light">{{comp_id}} ({{comp.display}})</h3>
+            <hr>
+
+            <br>
+
+
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light"><i class="fas fa-map-marked-alt"></i> {{comp.addr}}</h6>
+                </div>
+
+                <iframe id="gmap_canvas"
+                    src="https://maps.google.com/maps?q={{comp.addr|replace(' ', '%20')}}&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                    frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" height="500"></iframe>
+
+            </div>
+
+            <br>
+            <br>
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light">Company Info <i class="fas fa-info-circle fa-lg"></i></h6>
+                </div>
+                <div class="card-body text-left">
+                    <br>
+                    <h6 class="font-weight-light"><b>Phone:</b> {{comp.phone}}</h6>
+                    <br>
+                    <h6 class="font-weight-light"><b>Legal Name:</b> {{comp.legal_name}}</h6>
+                    <br>
+                    <h6 class="font-weight-light"><b>LIC:</b> {{comp.lic}}</h6>
+                    <br>
+                    <h6 class="font-weight-light"><b>Union:</b> {{comp.union}} </h6>
+                    <br>
+                    <h6 class="font-weight-light"><b>Website:</b> {{comp.website}} </h6>
+
+                    <br>
+                    <form action="deauth-comp" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <h6 class="font-weight-light">
+                            <button class="btn btn-danger" type="submit" name="comp" value="{{k}}">Deauthorize Company
+                                <i class="fas fa-times-circle"></i></button></h6>
+                    </form>
+
+                    <br>
+                    <br>
+
+
+                </div>
+
+
+            </div>
+
+            <br>
+            <br>
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light">Administrators <i class="fas fa-user-shield fa-lg"></i></h6>
+                </div>
+                <div class="card-body text-left">
+                    <br>
+
+                    {% for k_a, v_a in personnel.items() %}
+                        {% if v_a.type == 'admin' %}
+                        <h5 class="font-weight-bold">{{ v_a.name }}</h5>
+                            <h6 class="font-weight-light"><i class="fas fa-phone"></i> {{ v_a.phone }}<br><i class="fas fa-envelope"></i> <a href="mailto:{{ v_a.email }}">{{ v_a.email }}</a></h6>
+                            <br>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+
+
+
+                    <br>
+                    <br>
+
+
+                </div>
+
+
+            </div>
+
+            <br>
+            <br>
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light">Technicians <i class="fas fa-user-edit fa-lg"></i></h6>
+                </div>
+                <div class="card-body text-left">
+                    <br>
+                    <br>
+                    {% for k_a, v_a in personnel.items() %}
+                        {% if v_a.type == 'tech' %}
+                        <h5 class="font-weight-bold">{{ v_a.name }}</h5>
+                            <h6 class="font-weight-light"><i class="fas fa-phone"></i> {{ v_a.phone }}<br><i class="fas fa-envelope"></i> <a href="mailto:{{ v_a.email }}">{{ v_a.email }}</a></h6>
+                            <br>
+                            <br>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    <br>
+                    <br>
+
+
+                </div>
+
+
+            </div>
+            <br>
+            <br>
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light">Certificates <i class="fas fa-certificate fa-lg"></i></h6>
+                </div>
+
+                <div class="text-justify">
+                    <br>
+                    {% for c in comp.certs %}
+                    <h5 class="font-weight-bold">{{c}}:</h5>
+                    <br>
+                    <img class="img-fluid border-dark" src="{{comp['certs'][c]['img']}}">
+
+
+                    <br>
+                    <br>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            <br><br>
+            <div class="card">
+
+                <div class="card-header bg-dark text-light font-weight-light">
+                    <h6 class="font-weight-light">Logo <i class="fas fa-file-image fa-lg"></i></h6>
+                </div>
+            </div>
+            <img class="img-fluid" src="{{comp.logo}}">
+
+
+
+
+
+            <br>
+
+            <br>
+            <br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

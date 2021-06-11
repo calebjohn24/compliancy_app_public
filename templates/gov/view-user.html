@@ -1,0 +1,70 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Your Info
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Your Profile</h1><br>
+
+
+
+<div class="card">
+                            <h5 class="card-header bg-danger text-light font-weight-light">Your Account</h5>
+                            <div class="card-body font-weight-light text-left">
+                            <h6 class="font-weight-light"><h6 class="font-weight-bold">Name:</h6> {{user_info.name}}</h6><br><br>
+                                <h6 class="font-weight-light"><h6 class="font-weight-bold">Email:</h6> {{user_info.email}}</h6><br><br>
+                                <h6 class="font-weight-light"><h6 class="font-weight-bold">Phone:</h6> {{user_info.phone}} <button type="button"
+                                        class="btn btn-primary" data-toggle="modal" data-target="#m2fa-phone">
+                                        <i class="fa fa-edit"></i>
+                                    </button></h6>
+
+                                <div class="modal fade" id="m2fa-phone" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">
+                                                    Edit Phone Number</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="change-2fa-phone" method="POST"><input type="hidden"
+                                                    name="csrf_token" value="{{ csrf_token() }}" />
+                                                <div class="modal-body">
+                                                    <p class="font-weight-light">Enter New Phone Number:</p>
+                                                    <small>Format: 123-444-5555</small><br>
+                                                    <input class="text border-dark form-control font-weight-light"
+                                                        type="tel" id="phone" name="phone"
+                                                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Change</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

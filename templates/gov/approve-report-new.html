@@ -1,0 +1,447 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+Approve Report
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br><a class="btn btn-md btn-primary" href="/fire-admin/{{id}}/panel" role="button"><i class="fas fa-home"></i></a>  Approve Report</h1>
+<br>
+
+
+<div class="text-center">
+            <br>
+
+                <h4 class="font-weight-bold text-dark"> {{report.form_name}} ({{report.cert}}) </h4>
+
+                <br>
+                <hr>
+                <br>
+                <h5 class="font-weight-bold">Completed: {{report.time_stamp}}</h5>
+                <br>
+                <div class="font-weight-light">
+                <a href="/fire-admin/{{zone}}/view-comp/{{report.comp}}" target="_blank"><h4 class="text-dark">Company: {{report.comp}} ({{comp_name}})</h4></a>
+                    <br>
+                    <a href="/fire-admin/{{zone}}/view-system/{{report.system}}" target="_blank"><h4 class="text-dark">System ID: #{{report.system}}</h4></a>
+                    <br>
+                    <br>
+                    {% if report.tag|upper == 'YELLOW' %}
+
+                    <div class="alert alert-warning font-weight-light" role="alert">
+                        Yellow Tag
+                    </div>
+
+                    {% elif report.tag|upper == 'RED' %}
+
+                    <div class="alert alert-danger font-weight-light" role="alert">
+                        Red Tag
+                    </div>
+
+                    {% elif report.tag|upper == 'WHITE' %}
+
+                    <div class="alert alert-light text-dark font-weight-light border border-dark" role="alert">
+                        White Tag
+                    </div>
+
+                    {% endif %}
+
+                    <br>
+                    <br>
+
+
+
+                    {% if cert_check == 'yes' %}
+
+                    <div class="card">
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">{{system.brand}} Certification <i
+                                    class="fas fa-certificate fa-lg"></i>
+                            </h6>
+                        </div>
+                        <div class="card-body text-center">
+                            <img class="img-fluid" src="{{cert}}">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    {% endif %}
+
+                    <div class="card">
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">Technician Info <i class="fas fa-user-alt fa-lg"></i>
+                            </h6>
+                        </div>
+                        <div class="card-body text-left">
+                            <!-- {{user}} -->
+                            <h6 class="font-weight-light"><i class="fas fa-user-alt fa-lg"></i> Name: <b>{{user.name}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light"><i class="fas fa-envelope fa-lg"></i> Email: <b>{{user.email}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light"><i class="fas fa-phone fa-lg"></i> Phone: <b>{{user.phone}}</b></h6>
+                            <br>
+                            {% if tech_cert == 'yes' %}
+
+                            <h6 class="font-weight-light">State Certification Number: <b>{{user.state_cert}}</b></h6>
+                            <br>
+
+                            <h6 class="font-weight-light">ICC Certification Number: <b>{{user.icc}}</b></h6>
+                            <br>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+                    <div class="card">
+
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light"><i class="fas fa-map-marked-alt"></i> {{system.addr}}
+                                {{system.city}}
+                                {{system.state}} {{system.zip}}</h6>
+                        </div>
+
+                        <iframe id="gmap_canvas"
+                            src="https://maps.google.com/maps?q={{system.addr|replace(' ', '%20')}}%20{{system.state}}%20{{system.zip}}&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="yes" marginheight="0" marginwidth="0" height="500"></iframe>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="card">
+
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">System Info <i class="fas fa-info-circle fa-lg"></i></h6>
+                        </div>
+                        <div class="card-body text-left">
+                            <br>
+                            <h6 class="font-weight-light">Brand: <b>{{system.brand}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light">Model: <b>{{system.model}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light">Burners: <b>{{system.burner}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light">Location: <b>{{system.location}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light">Registered By: <b>{{system.reg_comp}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light">Registered On: <b>{{system.time_stamp}}</b></h6>
+                            <br>
+                            {% if system.last_inspect == 'na' %}
+
+                            <h6 class="font-weight-light">Last Inspected By: N/A </h6>
+                            <br>
+                            {% else %}
+                            <h6 class="font-weight-light">Last Inspected By: <b>{{system.last_comp}}</b> on
+                                <b>{{system.last_inspect}}</b>
+                            </h6>
+                            <br>
+                            {% endif %}
+                            <br>
+                        </div>
+
+
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="card">
+
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">System Contact Info <i class="fas fa-address-card fa-lg"></i>
+                            </h6>
+                        </div>
+
+                        <div class="card-body text-left">
+                            <br>
+
+                            <h6 class="font-weight-light">Business Name: <b>{{system.name}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light"><i class="fas fa-phone fa-lg"></i> Phone: <b>{{system.phone}}</b></h6>
+                            <br>
+                            <h6 class="font-weight-light"><i class="fas fa-envelope fa-lg"></i> Email: <a
+                                    href="mailto:{{system.email}}"><b>{{system.email}}</b></a>
+                            </h6>
+                            <br>
+                            <br>
+                        </div>
+
+                    </div>
+                    <br><br>
+                    <div class="card">
+
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">Diagram <i class="fas fa-file-image fa-lg"></i></h6>
+                        </div>
+                    </div>
+                    <img class="img-fluid" src="{{system.drawing}}">
+
+
+
+
+
+                    <br>
+
+                    <br>
+                    <hr>
+                    <br>
+                    <div class="card">
+
+                        <div class="card-header bg-dark text-light font-weight-light">
+                            <h6 class="font-weight-light">Report <i class="fas fa-clipboard-list fa-lg"></i></h6>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+
+                            <div class="col-lg-11">
+                                <div class="text-left">
+
+
+
+                                    {% for f in range(report['form']|length) %}
+
+
+
+                                    <h5 class="font-weight-light text-danger">Question #{{f+1}}:
+                                        {{report['form'][f]['question']}}</h5>
+                                    <br><br>
+
+                                    <!-- {{report['form'][f]}} -->
+
+                                    {% if report['form'][f]['check'] %}
+
+                                    <h5 class="font-weight-bold">{{report['form'][f]['check']}}</h5>
+                                    <br>
+
+
+                                    {% endif %}
+
+                                    {% if report['form'][f]['mul'] %}
+
+                                    <h5 class="font-weight-bold">{{report['form'][f]['mul']}}</h5>
+                                    <br>
+
+
+                                    {% endif %}
+
+                                    {% if report['form'][f]['text'] %}
+
+                                    <h6 class="font-weight-light">{{report['form'][f]['text']['label']}}:</h6>
+                                    <h5 class="font-weight-bold">{{report['form'][f]['text']['data']}}</h5>
+                                    <br>
+
+
+                                    {% endif %}
+
+                                    {% if report['form'][f]['photo'] %}
+
+                                    <h6 class="font-weight-light">{{report['form'][f]['photo']['descrip']}}:</h6>
+                                    <br>
+                                    <div class="col-lg-6">
+                                        <img class="img-fluid" src="{{report['form'][f]['photo']['data']}}"><br>
+                                    </div>
+
+
+                                    {% endif %}
+
+                                    <br>
+                                    <hr>
+                                    <br>
+
+                                    {% endfor %}
+                                    <h2>End of Report</h2>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-lg-1"></div>
+                        </div>
+                    </div>
+                    <br>
+                    {% if report.tag|upper == 'YELLOW' %}
+
+                    <div class="alert alert-warning font-weight-light" role="alert">
+                        Yellow Tag
+                    </div>
+
+                    {% elif report.tag|upper == 'RED' %}
+
+                    <div class="alert alert-danger font-weight-light" role="alert">
+                        Red Tag
+                    </div>
+
+                    {% elif report.tag|upper == 'WHITE' %}
+
+                    <div class="alert alert-light text-dark font-weight-light border border-dark" role="alert">
+                        White Tag
+                    </div>
+
+                    {% endif %}
+
+                    <br>
+                    <br>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#changeTag">
+                      Change Tag
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="changeTag" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Select New Tag</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/fire-admin/{{id}}/change-form-tag">
+                                    <br>
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                                    <input name="request_id" type="hidden" value="{{request_id}}">
+                                    <input name="system_id" type="hidden" value="{{report.system}}">
+                                    <input name="report_id" type="hidden" value="{{report_id}}">
+                                    <input name="tag" class="btn btn-light text-dark border-dark" type="submit" value="White"><br><br>
+                                    <input name="tag" class="btn btn-warning" type="submit" value="Yellow"><br><br>
+                                    <input name="tag" class="btn btn-danger" type="submit" value="Red"><br><br>
+
+                                    </form>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <br>
+                    <br>
+                    <br>
+                    <hr>
+                    <br>
+
+
+
+
+
+
+
+
+
+                    <br>
+                    <br>
+
+                    <br>
+                    <form action="/fire-admin/{{zone}}/confirm-report" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="system" value="{{report.system}}">
+                        <input type="hidden" name="report_id" value="{{report_id}}">
+                        <input type="hidden" name="request_id" value="{{request_id}}">
+                        <input type="hidden" name="zone" value="{{zone}}">
+                        <div class="row">
+
+                            <div class="col">
+                                <button type="submit" name="accept" value="yes"
+                                    class="btn btn-lg btn-success font-weight-light">Certify Report</button>
+
+
+                            </div>
+
+                            <div class="col">
+
+
+                                <button type="button" data-toggle="modal" data-target="#amendModal"
+                                    class="btn btn-lg btn-danger font-weight-light">Request Amendments</button>
+
+                                <div class="modal fade" id="amendModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title font-weight-light" id="amendModalTitle">
+                                                    Request
+                                                    Amendments</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <textarea class="font-weight-light form-control border-dark" cols="30"
+                                                    rows="5" name="reason" type="text" value=" "></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" name="accept" value="no"
+                                                    class="btn btn-danger btn-lg font-weight-light">Request</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

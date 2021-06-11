@@ -1,0 +1,170 @@
+{% extends "base/company_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+
+    Your Profile
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+
+
+{% endblock %}
+
+
+
+{% block main %}
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Your Info</h1>
+    <br>
+
+        <!-- Name -->
+
+        <div class="row text-center">
+
+          <div class="col">
+
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Name</h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">{{name}}</h5> <br>
+
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Password <i class="fas fa-lock"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light"><i class="fas fa-key fa-lg"></i></h5><br>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-pw">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+
+            <div class="card">
+              <h5 class="card-header text-light bg-dark font-weight-light">Phone <i class="fas fa-phone"></i></h5>
+              <div class="card-body">
+                <h5 class="card-title font-weight-light">{{phone_user}}</h5> <br>
+
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModalCenter-phone">
+                  Change <i class="fas fa-edit"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Edit Name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~name" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light text-light">Enter New Name:</p>
+                  <input type="text" class="font-weight-light border-dark form-control" name="name" value="{{name}}">
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Save changes" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+        <br><br>
+
+
+
+        <div class="modal fade" id="exampleModalCenter-phone" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Change Phone Number</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~number" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <small class="font-weight-light">Note: Without a Valid Phone Number We Cannot Recover Your
+                    Account</small>
+                  <p class="font-weight-light text-light">Enter New Number:</p>
+                  <input type="tel" name="number" class="font-weight-light border-dark form-control"
+                    value="{{phone_user}}" required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Change Number" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- Name Modal -->
+        <div class="modal fade" id="exampleModalCenter-pw" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title font-weight-light" id="exampleModalLongTitle">Change Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="admin-user-update~pw" method="post"><input type="hidden" name="csrf_token"
+                  value="{{ csrf_token() }}" />
+                <div class="modal-body">
+                  <p class="font-weight-light text-light">Enter New Password:</p>
+                  <input type="password" class="font-weight-light border-dark form-control" name="pw" value="" required>
+                </div>
+                <div class="modal-footer">
+
+                  <input type="submit" value="Change Password" class="btn btn-success">
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}

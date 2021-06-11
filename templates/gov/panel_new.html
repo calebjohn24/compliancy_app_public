@@ -1,0 +1,309 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+    Fire Marshal Panel
+{% endblock %}
+<!--Set Title-->
+
+
+{% block head %}
+
+    
+{% endblock %}
+
+
+{% block main %}
+    <!--Page code here-->
+    <h1 class="h3 mb-4 text-gray-800"><br>Fire Marshal Panel</h1>
+    <br>
+    <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Jurisdiction Id
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ id }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <img height="60" src="{{ logo }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Systems Past Due
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {% if  'past_due' in request_data %}
+                                {{request_data.past_due|length}}
+                            {% else %}
+                                0
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-fire-extinguisher fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-2 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">System Requests</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {% if  'systems' in request_data %}
+                                {{request_data.systems|length}}
+                            {% else %}
+                                0
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-fire-extinguisher fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-2 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Report Requests</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {% if  'reports' in request_data %}
+                                {{request_data.reports|length}}
+                            {% else %}
+                                0
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-2 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Company Requests
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {% if  'comp' in request_data %}
+                                {{request_data.comp|length}}
+                            {% else %}
+                                0
+                            {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <hr>
+    <br>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item pill-red">
+            <a class="nav-link active" id="pills-past-due-tab" data-toggle="pill" href="#pills-past-due" role="tab"
+               aria-controls="pills-past-due" aria-selected="true">Past Due Systems</a>
+        </li>
+        <li class="nav-item pill-red">
+            <a class="nav-link" id="pills-system-tab" data-toggle="pill" href="#pills-system" role="tab"
+               aria-controls="pills-system" aria-selected="false">System Requests</a>
+        </li>
+        <li class="nav-item pill-red">
+            <a class="nav-link" id="pills-report-tab" data-toggle="pill" href="#pills-reports" role="tab"
+               aria-controls="pills-reports" aria-selected="false">Report Requests</a>
+        </li>
+        <li class="nav-item pill-red">
+            <a class="nav-link" id="pills-companies-tab" data-toggle="pill" href="#pills-companies" role="tab"
+               aria-controls="pills-companies" aria-selected="false">Company Requests</a>
+        </li>
+    </ul>
+    <div class="tab-content container-fluid" id="pills-tabContent">
+        <br>
+        <div class="tab-pane fade show active" id="pills-past-due" role="tabpanel" aria-labelledby="pills-past-due-tab">
+        {% if  'past_due' in request_data %}
+        <h4 class="text-dark">Past Due Systems</h4>
+            {% for k_past, v_past in  request_data.past_due.items() %}
+                <div class="row">
+
+                <div class="col-lg-6"> 
+
+
+                <div class="card">
+                <div class="card-body">
+                <a href="view-system/{{k_past}}" target="_blank"><h5 class="card-title text-warning"><i class="fas fa-tag"></i>  System ID: {{k_past}}</h5></a>
+                <p class="card-text text-success"><i class="fas fa-fire-extinguisher"></i> Type: {{v_past.type}}</p>
+                <p class="card-text text-secondary"><i class="fas fa-building"></i> Owner: {{v_past.name}}</p>
+                <p class="card-text text-dark"><i class="fas fa-map-marker-alt"></i> Address: {{v_past.addr}}</p>
+                <p class="card-text text-dark"><i class="fas fa-phone"></i> Phone: {{v_past.phone}}</p>
+                <a href="mailto:{{v_past.email}}"><p class="card-text text-dark"><i class="fas fa-envelope"></i> Email: {{v_past.email}}</p><br></a><br>
+                <div class="row">
+                <div class="col">
+                <a href="mailto:{{v_past.email}}" class="btn btn-warning">Send Email <i class="fas fa-envelope"></i></a>
+                </div>
+                <div class="col">
+                <a href="dismiss-past-due/{{k_past}}" class="btn btn-success">Dismiss <i class="fas fa-check"></i></a>
+                </div>
+                </div>
+                </div>
+                </div>
+                <br>
+
+
+
+                </div>
+
+                </div>
+
+            {% endfor %}
+            {% else %}
+            <h4 class="text-dark">No Past Due Systems</h4>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            
+        </div>
+        <div class="tab-pane fade" id="pills-system" role="tabpanel" aria-labelledby="pills-system-tab">
+            {% if  'systems' in request_data %}
+            <h4 class="text-dark">New Systems</h4>
+            {% for k_systems, v_systems in  request_data.systems.items() %}
+            
+                <div class="row">
+
+                <div class="col-lg-6"> 
+
+
+                <div class="card">
+                <div class="card-body">
+                <h5 class="card-title text-success"><i class="fas fa-fire-extinguisher"></i> Type: {{v_systems.type}}</h5>
+                <p class="card-text text-secondary"><i class="fas fa-building"></i> Owner: {{v_systems.name}}</p>
+                <p class="card-text text-dark"><i class="fas fa-map-marker-alt"></i> Address: {{v_systems.addr}}</p><br>
+                <a href="system-register/{{k_systems}}" class="btn btn-success">View <i class="fas fa-eye"></i></a>
+                </div>
+                </div>
+                <br>
+
+
+
+                </div>
+
+                </div>
+
+            {% endfor %}
+            {% else %}
+            <h4 class="text-dark">No New Systems</h4>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+        </div>
+        <div class="tab-pane fade" id="pills-reports" role="tabpanel" aria-labelledby="pills-contact-tab">
+            {% if  'reports' in request_data %}
+            <h4 class="text-dark">New Reports</h4>
+            {% for k_reports, v_reports in  request_data.reports.items() %}
+            
+                <div class="row">
+
+                <div class="col-lg-6"> 
+
+
+                <div class="card">
+                <div class="card-body">
+                <a href="view-system/{{v_reports.system}}" target="_blank"><h5 class="card-title text-primary"><i class="fas fa-tag"></i>  System ID: {{v_reports.system}}</h5></a>
+                <a href="view-comp/{{v_reports.comp}}" target="_blank"><p class="card-text text-dark"><i class="fas fa-building"></i> Company ID: {{v_reports.comp}}</p></a><br>
+                <a href="check-report/{{k_reports}}" class="btn btn-primary">View <i class="fas fa-eye"></i></a>
+                </div>
+                </div>
+                <br>
+
+
+
+                </div>
+
+                </div>
+
+            {% endfor %}
+            {% else %}
+            <h4 class="text-dark">No New Reports</h4>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+        </div>
+        <div class="tab-pane fade" id="pills-companies" role="tabpanel" aria-labelledby="pills-companies-tab">
+            {% if  'comp' in request_data %}
+            <h4 class="text-dark">New Companies</h4>
+            {% for k_comps, v_comps in  request_data.comp.items() %}
+            
+                <div class="row">
+
+                <div class="col-lg-6"> 
+
+
+                <div class="card">
+                <div class="card-body">
+                <h5 class="card-title text-primary"><i class="fas fa-building"></i> {{v_comps.name}}</h5>
+                <a href="view-comp/{{v_comps.id}}" target="_blank"><p class="card-text text-dark"><i class="fas fa-tag"></i> Company ID: {{v_comps.id}}</p></a><br>
+                <a href="comp-register/{{v_comps.id}}/req/{{k_comps}}" class="btn btn-primary">View <i class="fas fa-eye"></i></a>
+                </div>
+                </div>
+                <br>
+
+
+
+                </div>
+
+                </div>
+
+            {% endfor %}
+            {% else %}
+            <h4 class="text-dark">No New Reports</h4>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+
+
+    {% block script %}
+
+
+    {% endblock %}
+    <!--END-->
+{% endblock %}

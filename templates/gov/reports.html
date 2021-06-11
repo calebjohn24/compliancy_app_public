@@ -1,0 +1,102 @@
+{% extends "base/fire_admin.html" %}
+<!--Import Base Template-->
+{% block title %}
+Reports
+
+{% endblock %}
+<!--Set Title-->
+
+{% block head %}
+        <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}"></script>
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet"
+          type="text/css">
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-flash-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/datatables.min.js">
+    </script>
+
+{% endblock %}
+
+
+{% block main %}
+        <script>
+    $(document).ready(function() {
+    $('#log-table').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
+    </script>
+<!--Page code here-->
+
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">
+
+<br>Certified Reports</h1>
+    <br>
+        <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Reports</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-striped dataTable" id="log-table" role="grid"
+                                   aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+                               <thead>
+            <tr>
+                <th class="font-weight-bold text-sm-left">Date <i class="fas fa-sort"></i></th>
+                <th class="font-weight-bold text-sm-left">Report Type <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">System ID <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Company ID <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">Tag <i class="fas fa-sort"></i></th>
+              <th class="font-weight-bold text-sm-left">View</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for  k, v in reports.items() %}
+            {% if v.cert != 'UNCERTIFIED' %}
+            <tr>
+             <td class="font-weight-light">{{v.time_stamp[:10]}}</td>
+             <td class="font-weight-light">{{v.form_name}}</td>
+             <td class="font-weight-light">{{v.system}}</td>
+
+              <td class="font-weight-light">{{v.comp}}</td>
+              <td class="font-weight-light">
+                  {% if v.tag == 'Red' %}
+                      <p class="text-danger">{{v.tag}}</p>
+                  {% elif v.tag == 'Yellow' %}
+                      <p class="text-warning">{{ v.tag }}</p>
+                  {% else %}
+                      <p class="text-dark">{{ v.tag }}</p>
+                  {% endif %}
+              </td>
+              <td class="font-weight-light"><a class="btn btn-primary"
+                  href="/{{id}}/view-report/{{k}}/{{v.token}}/admin"><i class="fas fa-eye"></i></a></td>
+
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+
+          </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% block script %}
+
+
+{% endblock %}
+<!--END-->
+{% endblock %}
