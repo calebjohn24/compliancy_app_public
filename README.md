@@ -7,7 +7,7 @@ Built with Flask, Jinja2, Bootstrap (Fork of <a href="https://github.com/startbo
 #####  *This repo is a mirror of my private repository with proprietary blobs and info removed*
 
 
-This platform includes web dashboards for <b>Fire Marshals</b> and <b>Company Admins</b> and a <a href="https://github.com/calebjohn24/compliancy_app_mobile">mobile app</a> for <b>Technicians</b>
+This platform includes web dashboards for <a href="https://github.com/calebjohn24/compliancy_app_public#fire-marshal-dashboard">Fire Marshals</a> and <a href="https://github.com/calebjohn24/compliancy_app_public#company-admin-dashboard">Company Admins</a> and a <a href="https://github.com/calebjohn24/compliancy_app_mobile">mobile app</a> for <a href="https://github.com/calebjohn24/compliancy_app_public#company-admin-dashboard">Technicians</a>
   
   
 #### Fire Marshal Dashboard
