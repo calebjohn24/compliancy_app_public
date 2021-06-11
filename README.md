@@ -22,7 +22,7 @@ This platform includes web dashboards for <b>Fire Marshals</b> and <b>Company Ad
 ##### Authorize and Deauthorize Companies
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/GovCompanies.png">
 
-##### Certify and Review Reports
+##### Search and <a href="https://calebjohn24.github.io/compliancy_app_public/sampleForm.html" target="_blank">View Reports</a>
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/GovReports.png">
   
 ##### Build Custom Forms
@@ -32,6 +32,12 @@ This platform includes web dashboards for <b>Fire Marshals</b> and <b>Company Ad
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/GovQuestionTool.png">
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/GovQuestionTool2.png">
 
-##### Manage 
+
+#### Manage Jurisdiction Rules
+<img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/GovRules.png">
+
+
+#### Company Admin Dashboard
+<img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/AdminSplash.png" >
 
 
