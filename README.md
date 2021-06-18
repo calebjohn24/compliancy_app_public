@@ -55,7 +55,7 @@ This platform includes web dashboards for <a href="https://github.com/calebjohn2
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/AdminEmployee1.png">
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/AdminEmployee2.png">
 
-##### Manage Certificates and Comapny Profile
+##### Manage Certificates and Company Profile
 <img src="https://github.com/calebjohn24/compliancy_app_public/blob/master/demos/AdminInfo.png">
 
 
