@@ -1,8 +1,8 @@
-# Inspection Engine <a href="https://calebjohn24.github.io/compliancy_app_public/">compliancy_app</a>
+# Inspection Engine <a href="https://calebjohn24.github.io/compliancy_app_public/" target="_blank">compliancy_app</a>
 
 ### An end to end platform for fire safety reporting
 
-Built with Flask, Jinja2, Bootstrap (Base On <a href="https://github.com/startbootstrap/startbootstrap-sb-admin-2">This Template</a>), Chart.js, Leaflet.js, Datatables, and Firebase. Mobile App is built with Expo.io
+Built with Flask, Jinja2, Bootstrap (Base On <a href="https://github.com/startbootstrap/startbootstrap-sb-admin-2" target="_blank">This Template</a>), Chart.js, Leaflet.js, Datatables, and Firebase. Mobile App is built with Expo.io
 
 #####  *This repo is a mirror of my private repository with proprietary blobs and info removed*
 
